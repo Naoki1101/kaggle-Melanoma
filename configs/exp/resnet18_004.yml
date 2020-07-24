@@ -25,28 +25,12 @@ model:
         drop:
             name: Dropout
             params:
-                p: 0.5
+                p: 0.3
         linear:
             name: Linear
             params:
                 in_features: 512
                 out_features: 128
-        act2:
-            name: ReLU
-            params: {}
-        batch_norm2: 
-            name: BatchNorm1d
-            params:
-                num_features: 128
-        drop2:
-            name: Dropout
-            params:
-                p: 0.5
-        linear2:
-            name: Linear
-            params:
-                in_features: 128
-                out_features: 64
     metric:
 
 validation:

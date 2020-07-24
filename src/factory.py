@@ -132,12 +132,13 @@ class CustomCnn(nn.Module):
         super(CustomCnn, self).__init__()
         self.model = model
         self.linear1 = nn.Linear(4, 4)
-        self.linear2 = nn.Linear(model, 1)
-        self.bn1 = BatchNorm1d()
+        self.linear2 = nn.Linear(list(model.children())[-1] + 4, 1)
+        self.bn1 = BatchNorm1d(4)
 
     def forward(self, x, feats):
         x = self.model(x)
 
+        feats = self.bn1(feats)
         feats = self.linear1(feats)
 
         x = torch.cat([x, feats], axis=1)
