@@ -1,0 +1,15 @@
+__pycache__/
+.DS_Store
+
+notebooks/*
+!EDA_*.ipynb
+!*_for_inference.ipynb
+!oof.ipynb
+!Grad-CAM.ipynb
+
+logs/
+data/
+pickle/
+
+notify.yml
+tox.ini
