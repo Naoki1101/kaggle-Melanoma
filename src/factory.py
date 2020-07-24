@@ -134,7 +134,7 @@ class CustomCnn(nn.Module):
         super(CustomCnn, self).__init__()
         self.model = model
         self.linear1 = nn.Linear(4, 4)
-        self.linear2 = nn.Linear(9, 1)
+        self.linear2 = nn.Linear(68, 1)
 
     def forward(self, x, feats):
         x = self.model(x)
