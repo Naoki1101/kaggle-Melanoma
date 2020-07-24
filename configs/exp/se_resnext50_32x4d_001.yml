@@ -21,7 +21,7 @@ model:
         batch_norm: 
             name: BatchNorm1d
             params:
-                num_features: 2048
+                num_features: 8192
         drop:
             name: Dropout
             params:
@@ -29,7 +29,7 @@ model:
         linear:
             name: Linear
             params:
-                in_features: 2048
+                in_features: 8192
                 out_features: 5
     metric:
 

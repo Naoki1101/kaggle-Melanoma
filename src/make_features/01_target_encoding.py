@@ -19,7 +19,7 @@ def get_features(train, test):
 
     # TargetEncoding
     cfg = edict({
-        'name': 'SingleFold',
+        'name': 'StratifiedKFold',
         'params': {
             'n_splits': 5,
             'shuffle': True,
