@@ -67,6 +67,18 @@ data:
                 name: VerticalFlip
                 params:
                     p: 0.5
+            rotate:
+                name: Rotate
+                params:
+                    p: 0.5
+                    limit: 20
+            cutout:
+                name: Cutout
+                params:
+                    p: 0.5
+                    num_holes: 30
+                    max_h_size: 15
+                    max_w_size: 15
     valid:
         dataset_type: CustomDataset
         is_train: True
