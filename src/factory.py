@@ -133,7 +133,7 @@ class CustomCnn(nn.Module):
         self.model = model
         self.linear1 = nn.Linear(4, 4)
         self.linear2 = nn.Linear(list(model.children())[-1][-1].out_features + 4, 1)
-        self.bn1 = BatchNorm1d(4)
+        self.bn1 = nn.BatchNorm1d(4)
 
     def forward(self, x, feats):
         x = self.model(x)
