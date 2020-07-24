@@ -34,16 +34,14 @@ model:
     metric:
 
 validation:
-    name: SingleFold
+    name: GroupKFold
     params:
         n_splits: 5
-        shuffle: True
-        random_state: *seed
     split:
         y: target
         groups:
     weight:
-        - 1.0
+        - 0.2
 
 data:
     train:
@@ -53,7 +51,7 @@ data:
             width: &wsize 512
             height: &hsize 512
         n_channels: *channel
-        epochs: 3
+        epochs: 10
         loader:
             shuffle: True
             batch_size: 64
