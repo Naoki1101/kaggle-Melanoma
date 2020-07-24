@@ -30,7 +30,7 @@ model:
             name: Linear
             params:
                 in_features: 512
-                out_features: 128
+                out_features: 512
     metric:
 
 validation:
