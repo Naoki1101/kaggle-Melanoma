@@ -3,10 +3,10 @@ common:
     target: target
     drop:
     kaggle:
-        submit: False
+        submit: True
 
 model:
-    name: resnet18
+    name: se_resnext50_32x4d
     n_channels: &channel 3
     n_classes: 1
     pretrained: True
@@ -21,7 +21,7 @@ model:
         batch_norm: 
             name: BatchNorm1d
             params:
-                num_features: 512
+                num_features: 2048
         drop:
             name: Dropout
             params:
@@ -29,7 +29,7 @@ model:
         linear:
             name: Linear
             params:
-                in_features: 512
+                in_features: 2048
                 out_features: 5
     metric:
 
@@ -48,8 +48,8 @@ data:
         dataset_type: CustomDataset
         is_train: True
         img_size:
-            width: &wsize 512
-            height: &hsize 512
+            width: &wsize 256
+            height: &hsize 256
         n_channels: *channel
         epochs: 10
         loader:
