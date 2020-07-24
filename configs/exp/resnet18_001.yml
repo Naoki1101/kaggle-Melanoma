@@ -34,7 +34,7 @@ model:
     metric:
 
 validation:
-    name: StratifiedGroupKFold
+    name: GroupKFold
     params:
         n_splits: 5
         shuffle: True
