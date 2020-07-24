@@ -107,8 +107,6 @@ def replace_fc(model, cfg):
         model.fc = get_head(cfg.model.head)
     elif cfg.model.name.startswith('ghostnet'):
         model.classifier = get_head(cfg.model.head)
-        # fc_input = getattr(model.classifier[-1], 'in_features')
-        # model.classifier[-1] = nn.Linear(fc_input, classes)
 
     return model
 
@@ -134,12 +132,14 @@ class CustomCnn(nn.Module):
         super(CustomCnn, self).__init__()
         self.model = model
         self.linear1 = nn.Linear(4, 4)
-        self.linear2 = nn.Linear(68, 1)
+        self.linear2 = nn.Linear(model, 1)
+        self.bn1 = BatchNorm1d()
 
     def forward(self, x, feats):
         x = self.model(x)
 
         feats = self.linear1(feats)
+
         x = torch.cat([x, feats], axis=1)
         x = self.linear2(x)
         return x
