@@ -108,5 +108,5 @@ optimizer:
 scheduler:
     name: ReduceLROnPlateau
     params:
-        factor: 0.5
-        T_max: 3
+        patience: 0.5
+        factor: 3
