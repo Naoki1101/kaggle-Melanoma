@@ -3,10 +3,10 @@ common:
     target: target
     drop:
     kaggle:
-        submit: True
+        submit: False
 
 model:
-    name: se_resnext50_32x4d
+    name: efficientnet_b3
     n_channels: &channel 3
     n_classes: 1
     pretrained: True
@@ -21,40 +21,42 @@ model:
         batch_norm: 
             name: BatchNorm1d
             params:
-                num_features: 204800
+                num_features: 512
         drop:
             name: Dropout
             params:
-                p: 0.5
+                p: 0.3
         linear:
             name: Linear
             params:
-                in_features: 204800
+                in_features: 512
                 out_features: 128
     metric:
 
 validation:
-    name: GroupKFold
+    name: SingleFold
     params:
         n_splits: 5
+        shuffle: True
+        random_state: *seed
     split:
         y: target
-        groups: patient_id
+        groups:
     weight:
-        - 0.2
+        - 1.0
 
 data:
     train:
         dataset_type: CustomDataset
         is_train: True
         img_size:
-            width: &wsize 512
-            height: &hsize 512
+            width: &wsize 384
+            height: &hsize 384
         n_channels: *channel
         epochs: 10
         loader:
             shuffle: True
-            batch_size: 16
+            batch_size: 64
             num_workers: 4
         transforms:
             hflip:
@@ -74,7 +76,7 @@ data:
         n_channels: *channel
         loader:
             shuffle: False
-            batch_size: 16
+            batch_size: 32
             num_workers: 4
         transforms:
         tta:
@@ -88,7 +90,7 @@ data:
         n_channels: *channel
         loader:
             shuffle: False
-            batch_size: 32
+            batch_size: 16
             num_workers: 4
         transforms:
         tta:
