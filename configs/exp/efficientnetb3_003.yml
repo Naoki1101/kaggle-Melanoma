@@ -53,7 +53,7 @@ data:
             width: &wsize 384
             height: &hsize 384
         n_channels: *channel
-        epochs: 10
+        epochs: 40
         loader:
             shuffle: True
             batch_size: 32
@@ -103,7 +103,7 @@ loss:
 optimizer:
     name: Adam
     params:
-        lr: 0.001
+        lr: 0.0001
 
 scheduler:
     name: ReduceLROnPlateau
