@@ -30,11 +30,12 @@ def predict_fold(run_name, df, cfg, fold_num):
     preds = []
 
     model.eval()
-    for images, feats in test_loader:
-        images = images.to(device)
-        feats = feats.to(device)
+    with torch.no_grad():
+        for images, feats in test_loader:
+            images = images.to(device)
+            feats = feats.to(device)
 
-        logits = model(images.float(), feats.float())
-        preds.append(logits.cpu().detach().numpy())
+            logits = model(images.float(), feats.float())
+            preds.append(logits.cpu().detach().numpy())
 
     return np.concatenate(preds)
