@@ -6,7 +6,7 @@ common:
         submit: False
 
 model:
-    name: efficientnet_b3
+    name: resnet18
     n_channels: &channel 3
     n_classes: 1
     pretrained: True
@@ -21,7 +21,7 @@ model:
         batch_norm: 
             name: BatchNorm1d
             params:
-                num_features: 1536
+                num_features: 512
         drop:
             name: Dropout
             params:
@@ -29,7 +29,7 @@ model:
         linear:
             name: Linear
             params:
-                in_features: 1536
+                in_features: 512
                 out_features: 128
     metric:
 
@@ -50,13 +50,13 @@ data:
         dataset_type: CustomDataset
         is_train: True
         img_size:
-            width: &wsize 384
-            height: &hsize 384
+            width: &wsize 256
+            height: &hsize 256
         n_channels: *channel
         epochs: 10
         loader:
             shuffle: True
-            batch_size: 32
+            batch_size: 64
             num_workers: 4
         transforms:
             hflip:
@@ -67,6 +67,18 @@ data:
                 name: VerticalFlip
                 params:
                     p: 0.5
+            rotate:
+                name: Rotate
+                params:
+                    p: 0.5
+                    limit: 20
+            cutout:
+                name: Cutout
+                params:
+                    p: 0.5
+                    num_holes: 30
+                    max_h_size: 15
+                    max_w_size: 15
     valid:
         dataset_type: CustomDataset
         is_train: True
@@ -76,7 +88,7 @@ data:
         n_channels: *channel
         loader:
             shuffle: False
-            batch_size: 16
+            batch_size: 32
             num_workers: 4
         transforms:
         tta:
@@ -90,7 +102,7 @@ data:
         n_channels: *channel
         loader:
             shuffle: False
-            batch_size: 32
+            batch_size: 16
             num_workers: 4
         transforms:
         tta:
@@ -106,7 +118,7 @@ optimizer:
         lr: 0.0001
 
 scheduler:
-    name: CosineAnnealingLR
+    name: ReduceLROnPlateau
     params:
-        eta_min: 0.000001
-        T_max: 10
+        factor: 0.5
+        T_max: 5
