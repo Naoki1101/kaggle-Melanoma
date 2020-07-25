@@ -1,4 +1,32 @@
 features:
+- one_hot_age_0.0
+- one_hot_age_10.0
+- one_hot_age_15.0
+- one_hot_age_20.0
+- one_hot_age_25.0
+- one_hot_age_30.0
+- one_hot_age_35.0
+- one_hot_age_40.0
+- one_hot_age_45.0
+- one_hot_age_50.0
+- one_hot_age_55.0
+- one_hot_age_60.0
+- one_hot_age_65.0
+- one_hot_age_70.0
+- one_hot_age_75.0
+- one_hot_age_80.0
+- one_hot_age_85.0
+- one_hot_age_90.0
+- one_hot_sex
+- one_hot_site_head-neck
+- one_hot_site_head/neck
+- one_hot_site_lower extremity
+- one_hot_site_oral-genital
+- one_hot_site_oral/genital
+- one_hot_site_palms-soles
+- one_hot_site_palms/soles
+- one_hot_site_torso
+- one_hot_site_upper extremity
 - target_encoding_age_approx
 - target_encoding_age_site
 - target_encoding_sex

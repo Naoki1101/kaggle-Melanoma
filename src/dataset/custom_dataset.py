@@ -24,7 +24,7 @@ class CustomDataset(Dataset):
     def __init__(self, df, cfg):
         self.cfg = cfg
         self.image_ids = df['image_name'].values
-        self.feats = df.loc[:, df.columns.str.startswith('target_encoding')].values
+        self.feats = df.loc[:, df.columns.str.startswith('one_hot')].values
         self.transforms = get_transforms(self.cfg)
         self.is_train = cfg.is_train
         if cfg.is_train:
