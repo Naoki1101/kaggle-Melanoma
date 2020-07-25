@@ -131,8 +131,8 @@ class CustomCnn(nn.Module):
     def __init__(self, model):
         super(CustomCnn, self).__init__()
         self.model = model
-        self.linear1 = nn.Linear(4, 4)
-        self.linear2 = nn.Linear(132, 1)
+        self.linear1 = nn.Linear(4, 16)
+        self.linear2 = nn.Linear(144, 1)
         self.bn1 = nn.BatchNorm1d(4)
 
     def forward(self, x, feats):
