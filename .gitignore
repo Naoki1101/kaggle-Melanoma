@@ -2,14 +2,13 @@ __pycache__/
 .DS_Store
 
 notebooks/*
-!EDA_*.ipynb
-!*_for_inference.ipynb
-!oof.ipynb
+!EDA*.ipynb
 !Grad-CAM.ipynb
 
 logs/
 data/
 pickle/
+features/
 
 notify.yml
 tox.ini
