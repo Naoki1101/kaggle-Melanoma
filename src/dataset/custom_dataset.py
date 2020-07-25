@@ -36,9 +36,9 @@ class CustomDataset(Dataset):
     def __getitem__(self, idx):
         image_id = self.image_ids[idx]
         if self.is_train:
-            image = cv2.imread(f'../data/input/resized_{self.cfg.img_size.height}/train/{image_id}.jpg')
+            image = cv2.imread(f'../data/input/resized_{self.cfg.img_size.height}/train/{image_id}.png')
         else:
-            image = cv2.imread(f'../data/input/resized_{self.cfg.img_size.height}/test/{image_id}.jpg')
+            image = cv2.imread(f'../data/input/resized_{self.cfg.img_size.height}/test/{image_id}.png')
         image = 255 - (image * (255.0/image.max())).astype(np.uint8)
         image = cv2.resize(image, dsize=(self.cfg.img_size.height, self.cfg.img_size.width))
         if self.transforms:
