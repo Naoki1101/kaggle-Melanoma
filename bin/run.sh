@@ -23,7 +23,7 @@ cd ../src
 # python train.py -m 'se_resnext50_32x4d_001' -c 'base model'
 # python train.py -m 'se_resnext50_32x4d_002' -c 'size=512'
 
-python train.py -m 'ensemble_001' -c 'ens 3models'
+python ensemble.py -m 'ensemble_001' -c 'ens 3models'
 
 cd ../
 git add -A
