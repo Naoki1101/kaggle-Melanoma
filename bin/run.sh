@@ -8,7 +8,8 @@ cd ../src
 # python train.py -m 'efficientnetb3_006' -c 'add one-hot target features'
 # python train.py -m 'efficientnetb3_007' -c 'only target features'
 # python train.py -m 'efficientnetb3_008' -c 'add rotate, cutout, rrcrop'
-python train.py -m 'efficientnetb3_009' -c 'add microscope'
+# python train.py -m 'efficientnetb3_009' -c 'add microscope'
+python train.py -m 'efficientnetb3_010' -c 'StratifiedGroupKFold'
 
 # python train.py -m 'resnet18_001' -c 'test'
 # python train.py -m 'resnet18_002' -c 'base model'
