@@ -85,7 +85,8 @@ def main():
 
     with t.timer('make folds'):
         fold_df = factory.get_fold(cfg.validation, train_x, train_x[[cfg.common.target]])
-        fold_df = fold_df[['fold_0']]
+        if cfg.validation.single:
+            fold_df = fold_df[['fold_0']]
 
     with t.timer('train model'):
         result = train_model(run_name, train_x, fold_df, cfg)
