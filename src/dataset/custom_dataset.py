@@ -6,7 +6,7 @@ import numpy as np
 from torch.utils.data import Dataset
 import albumentations as album
 
-import transforms
+import transform
 
 
 def get_transforms(cfg):
