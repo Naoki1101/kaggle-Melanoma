@@ -44,7 +44,6 @@ def main():
     seed_everything(cfg.common.seed)
 
     logger_path.mkdir(exist_ok=True)
-    # logging.basicConfig(filename=logger_path / 'train.log', level=logging.DEBUG)
 
     dh.save(logger_path / 'config.yml', cfg)
 
@@ -68,7 +67,7 @@ def main():
             preds[:, i] = dh.load(f'../logs/{name}/raw_preds.npy')
 
     with t.timer('drop index'):
-        if cfg.data.drop.name is not None:
+        if cfg.common.drop is not None:
             drop_idx = factory.get_drop_idx(cfg.data.drop.name)
             train_df = train_df.drop(drop_idx, axis=0).reset_index(drop=True)
 
