@@ -66,7 +66,7 @@ class StratifiedGroupKFold:
     def split(self, X):
         y_value_counts = X[self.y].value_counts().sort_index()
         self.all_label, self.y_dist = y_value_counts.index, y_value_counts.values
-         if X[self.groups].dtype == 'O':
+        if X[self.groups].dtype == 'O':
             le = {id_: i for i, id_ in enumerate(X[self.groups].unique())}
             X[self.groups] = X[self.groups].map(le)
         df = pd.concat([X[[self.y, self.groups]]], axis=1)
@@ -95,8 +95,8 @@ class StratifiedGroupKFold:
             trn_fold_idx, val_fold_idx = np.array([]), np.array([])
             group_idx = np.where(fold_id_arr == fold_)[0]
             for g in np.sort(group_arr[group_idx]):
-                val_fold_idx = np.append(val_fold_idx, X[X[self.groups] == g].index.values)
-            trn_fold_idx_list = np.delete(X.index.values, val_fold_idx, axis=0)
+                val_fold_idx = np.append(val_fold_idx, X[X[self.groups] == g].index.values).astype(int)
+            trn_fold_idx = np.delete(X.index.values, val_fold_idx, axis=0)
 
             yield trn_fold_idx, val_fold_idx
 
