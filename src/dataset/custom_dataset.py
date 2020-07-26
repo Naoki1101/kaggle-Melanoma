@@ -13,7 +13,7 @@ def get_transforms(cfg):
     def get_object(transform):
         if hasattr(album, transform.name):
             return getattr(album, transform.name)
-        elif hasattr(transforms, transform.name):
+        elif hasattr(transform, transform.name):
             return getattr(transforms, transform.name)
         else:
             return eval(transform.name)
