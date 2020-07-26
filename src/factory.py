@@ -138,11 +138,11 @@ class CustomCnn(nn.Module):
     def forward(self, x, feats):
         x = self.model(x)
 
-        feats = self.bn1(feats)
-        feats = self.linear1(feats)
+        # feats = self.bn1(feats)
+        # feats = self.linear1(feats)
 
-        x = torch.cat([x, feats], axis=1)
-        x = self.linear2(x)
+        # x = torch.cat([x, feats], axis=1)
+        # x = self.linear2(x)
         return x
 
 
@@ -151,7 +151,7 @@ def get_model(cfg, is_train=True):
     if cfg.model.n_channels != 3:
         replace_channels(model, cfg)
     model = replace_fc(model, cfg)
-    # model = CustomCnn(model)
+    model = CustomCnn(model)
     if cfg.model.avgpool:
         model = replace_pool(model, cfg)
 
