@@ -66,6 +66,9 @@ class StratifiedGroupKFold:
     def split(self, X):
         y_value_counts = X[self.y].value_counts().sort_index()
         self.all_label, self.y_dist = y_value_counts.index, y_value_counts.values
+         if X[self.groups].dtype == 'O':
+            le = {id_: i for i, id_ in enumerate(X[self.groups].unique())}
+            X[self.groups] = X[self.groups].map(le)
         df = pd.concat([X[[self.y, self.groups]]], axis=1)
         df.columns = ['y', 'groups']
         count_y_each_group = df.pivot_table(index='groups', columns='y', fill_value=0, aggfunc=len)
