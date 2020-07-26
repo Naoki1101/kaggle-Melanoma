@@ -1,6 +1,9 @@
 common:
     seed: &seed 2020
     target: target
+    metrics:
+        name: auc
+        params: {}
     drop:
     kaggle:
         submit: True

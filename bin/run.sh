@@ -11,7 +11,7 @@ cd ../src
 # python train.py -m 'efficientnetb3_009' -c 'add microscope'
 # python train.py -m 'efficientnetb3_010' -c 'StratifiedGroupKFold'
 # python train.py -m 'efficientnetb3_011' -c 'StratifiedGroupKFold, 5fold'
-python train.py -m 'efficientnetb3_012' -c 'image only, StratifiedGroupKFold, 5fold'
+# python train.py -m 'efficientnetb3_012' -c 'image only, StratifiedGroupKFold, 5fold'
 
 # python train.py -m 'resnet18_001' -c 'test'
 # python train.py -m 'resnet18_002' -c 'base model'
@@ -22,6 +22,8 @@ python train.py -m 'efficientnetb3_012' -c 'image only, StratifiedGroupKFold, 5f
 
 # python train.py -m 'se_resnext50_32x4d_001' -c 'base model'
 # python train.py -m 'se_resnext50_32x4d_002' -c 'size=512'
+
+python train.py -m 'ensemble_001' -c 'ens 3models'
 
 cd ../
 git add -A

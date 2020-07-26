@@ -102,7 +102,7 @@ def train_model(run_name, df, fold_df, cfg):
 
             valid_preds, avg_val_loss = val_epoch(model, valid_loader, criterion, cfg)
 
-            val_score = metrics.auc(val_y, valid_preds)
+            val_score = hasattr(metrics, cfg.common.metrics.name)(val_y, valid_preds)
 
             train_loss_list.append(avg_loss)
             val_loss_list.append(avg_val_loss)
