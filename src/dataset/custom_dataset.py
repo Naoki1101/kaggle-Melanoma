@@ -6,15 +6,15 @@ import numpy as np
 from torch.utils.data import Dataset
 import albumentations as album
 
-import transform
+import transform as custom_album
 
 
 def get_transforms(cfg):
     def get_object(transform):
         if hasattr(album, transform.name):
             return getattr(album, transform.name)
-        elif hasattr(transform, transform.name):
-            return getattr(transforms, transform.name)
+        elif hasattr(custom_album, transform.name):
+            return getattr(custom_album, transform.name)
         else:
             return eval(transform.name)
     if cfg.transforms:
