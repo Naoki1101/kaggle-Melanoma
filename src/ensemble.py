@@ -49,8 +49,8 @@ def main():
     dh.save(logger_path / 'config.yml', cfg)
 
     with t.timer('load data'):
-        train_df = dh.load('../data/input/train_data.feather')
-        test_df = dh.load('../data/input/test_data.feather')
+        train_df = dh.load('../data/input/train.csv')
+        test_df = dh.load('../data/input/test.csv')
 
         oof = np.zeros((len(train_df), len(cfg.data.models)))
         preds = np.zeros((len(test_df), len(cfg.data.models)))
