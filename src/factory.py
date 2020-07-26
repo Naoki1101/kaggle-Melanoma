@@ -151,7 +151,7 @@ def get_model(cfg, is_train=True):
     if cfg.model.n_channels != 3:
         replace_channels(model, cfg)
     model = replace_fc(model, cfg)
-    model = CustomCnn(model)
+    # model = CustomCnn(model)
     if cfg.model.avgpool:
         model = replace_pool(model, cfg)
 
