@@ -27,7 +27,7 @@ def get_features(df):
 
 
 def main():
-    train_df = dh.load('../data/input/train.csv')
+    train_df = dh.load('../data/input/train_concated.csv')
     test_df = dh.load('../data/input/test.csv')
 
     whole_df = pd.concat([train_df, test_df], axis=0, sort=False, ignore_index=True)

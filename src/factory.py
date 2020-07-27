@@ -5,6 +5,7 @@ from torch.utils.data import DataLoader
 
 import loss
 import layer
+import metrics
 import validation
 from models import efficientnet, resnet, resnest, senet, ghostnet
 from dataset.custom_dataset import CustomDataset
@@ -209,3 +210,8 @@ def get_fold(cfg, df, target):
         fold_df.loc[val_idx, f'fold_{fold_}'] = weight_list[fold_]
     
     return fold_df
+
+
+def get_metrics(cfg):
+    evaluator = getattr(metrics, cfg)
+    return evaluator

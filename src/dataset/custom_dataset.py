@@ -33,6 +33,7 @@ class CustomDataset(Dataset):
         self.is_train = cfg.is_train
         if cfg.is_train:
             self.labels = df['target'].values
+            self.year = df.loc[:, 'year'].values
 
     def __len__(self):
         return len(self.image_ids)
@@ -40,7 +41,10 @@ class CustomDataset(Dataset):
     def __getitem__(self, idx):
         image_id = self.image_ids[idx]
         if self.is_train:
-            image = cv2.imread(f'../data/input/jpeg_resized_{self.cfg.img_size.height}/train/{image_id}.png')
+            if self.year[idx] == 2020:
+                image = cv2.imread(f'../data/input/jpeg_resized_{self.cfg.img_size.height}/train/{image_id}.png')
+            else:
+                image = cv2.imread(f'../data/input/2019_{self.cfg.img_size.height}/train/{image_id}.jpg')
         else:
             image = cv2.imread(f'../data/input/jpeg_resized_{self.cfg.img_size.height}/test/{image_id}.png')
         image = 255 - (image * (255.0/image.max())).astype(np.uint8)

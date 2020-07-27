@@ -8,6 +8,7 @@ features:
 - one_hot_age_35.0
 - one_hot_age_40.0
 - one_hot_age_45.0
+- one_hot_age_5.0
 - one_hot_age_50.0
 - one_hot_age_55.0
 - one_hot_age_60.0

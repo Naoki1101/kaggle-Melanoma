@@ -65,8 +65,18 @@ def main():
     dh.save(logger_path / 'config.yml', cfg)
 
     with t.timer('load data'):
-        train_x = dh.load('../data/input/train.csv')
+        train_x = dh.load('../data/input/train_concated.csv')
+        train_org_x = dh.load('../data/input/train.csv')
+        train_2019_x = dh.load('../data/input/train_2019.csv')
         test_x = dh.load('../data/input/test.csv')
+
+    with t.timer('make folds'):
+        fold_df = factory.get_fold(cfg.validation, train_org_x, train_org_x[[cfg.common.target]])
+        fold_df = pd.concat([fold_df,
+                             pd.DataFrame(np.zeros((len(train_2019_x), len(fold_df.columns))), columns=fold_df.columns)]
+                             , axis=0, sort=False, ignore_index=True)
+        if cfg.validation.single:
+            fold_df = fold_df[['fold_0']]
 
     with t.timer('load features'):
         features = dh.load('../configs/feature/all.yml')['features']
@@ -82,11 +92,7 @@ def main():
                 drop_idx_list.append(drop_idx)
             all_drop_idx = np.unique(np.concatenate(drop_idx_list))
             train_x = train_x.drop(all_drop_idx, axis=0).reset_index(drop=True)
-
-    with t.timer('make folds'):
-        fold_df = factory.get_fold(cfg.validation, train_x, train_x[[cfg.common.target]])
-        if cfg.validation.single:
-            fold_df = fold_df[['fold_0']]
+            fold_df = fold_df.drop(all_drop_idx, axis=0).reset_index(drop=True)
 
     with t.timer('train model'):
         result = train_model(run_name, train_x, fold_df, cfg)

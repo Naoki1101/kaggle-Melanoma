@@ -9,7 +9,7 @@ size_list = [256, 384, 512]
 def resize(data_name, id_, size):
     img = cv2.imread(f'../data/input/jpeg/{data_name}/{id_}.jpg')
     img = cv2.resize(img, dsize=(size, size))
-    cv2.imwrite(f'../data/input/jpeg_resized_{size}/{data_name}/{id_}.png', img)
+    cv2.imwrite(f'../data/input/jpeg_resized_{size}/{data_name}/{id_}.jpg', img)
 
 
 def main():

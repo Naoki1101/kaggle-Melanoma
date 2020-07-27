@@ -6,7 +6,7 @@ common:
         params: {}
     drop:
     kaggle:
-        submit: True
+        submit: False
 
 
 data:
@@ -15,7 +15,7 @@ data:
     drop:
         name:
     option:
-        rank_avg: False
+        rank_avg: True
     models:
         model1:
             name: se_resnext50_32x4d_001_20200724211049_0.883

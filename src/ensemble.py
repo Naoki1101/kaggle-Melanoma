@@ -60,20 +60,30 @@ def main():
             log_dir = Path(f'../logs/{name}')
             model_oof = dh.load(log_dir / 'oof.npy')
             model_cfg = dh.load(log_dir / 'config.yml')
-            if model_cfg.data.drop.name:
-                drop_idx = dh.load(f'../pickle/{model_cfg.data.drop.name}.npy')
+            if model_cfg.common.drop:
+                drop_idxs = np.array([])
+                for drop_name in model_cfg.common.drop:
+                    drop_idx = dh.load(f'../pickle/{drop_name}.npy')
+                    drop_idxs = np.append(drop_idxs, drop_idx)
                 model_oof = factory.extend_data(model_oof, drop_idx)
+
+            model_preds = dh.load(f'../logs/{name}/raw_preds.npy')
+
+            if cfg.data.option.rank_avg:
+                model_oof = np.argsort(np.argsort(model_oof)) / (len(model_oof) - 1)
+                model_preds = np.argsort(np.argsort(model_preds)) / (len(model_preds) - 1)
+
             oof[:, i] = model_oof
-            preds[:, i] = dh.load(f'../logs/{name}/raw_preds.npy')
+            preds[:, i] = model_preds
 
     with t.timer('drop index'):
         if cfg.common.drop is not None:
-            drop_idx = factory.get_drop_idx(cfg.data.drop.name)
+            drop_idx = factory.get_drop_idx(cfg.common.drop)
             train_df = train_df.drop(drop_idx, axis=0).reset_index(drop=True)
 
     with t.timer('optimize model weight'):
         metric = factory.get_metrics(cfg.common.metrics.name)
-        y_true = train_df[cfg.common.metrics.name]
+        y_true = train_df[cfg.common.target]
 
         def objective(trial):
             p_list = [0 for i in range(len(cfg.data.models))]
@@ -87,7 +97,7 @@ def main():
 
             return metric(y_true, y_pred)
 
-        study = optuna.create_study(direction='minimize')
+        study = optuna.create_study(direction='maximize')
         study.optimize(objective, timeout=10)
         best_params = list(study.best_params.values())
         best_weight = best_params + [round(1 - sum(best_params), 2)]
@@ -112,7 +122,7 @@ def main():
         print('\n===================================\n\n')
 
     with t.timer('make submission'):
-        sample_path = f'../data/input/{cfg.data.sample.name}.feather'
+        sample_path = f'../data/input/{cfg.data.sample.name}.csv'
         output_path = f'../data/output/{run_name_cv}.csv'
         make_submission(y_pred=ensemble_preds,
                         target_name=cfg.common.target,
@@ -120,7 +130,7 @@ def main():
                         output_path=output_path,
                         comp=False)
         if cfg.common.kaggle.submit:
-            kaggle = Kaggle(cfg.compe.name, run_name_cv)
+            kaggle = Kaggle(cfg.compe.compe_name, run_name_cv)
             kaggle.submit(comment)
 
     with t.timer('notify'):

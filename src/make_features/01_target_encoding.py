@@ -53,7 +53,7 @@ def get_features(train, test):
 
 
 def main():
-    train_df = dh.load('../data/input/train.csv')
+    train_df = dh.load('../data/input/train_concated.csv')
     test_df = dh.load('../data/input/test.csv')
 
     train_features_df, test_features_df = get_features(train_df, test_df)

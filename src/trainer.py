@@ -15,7 +15,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 import factory
-import metrics
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
@@ -102,7 +101,7 @@ def train_model(run_name, df, fold_df, cfg):
 
             valid_preds, avg_val_loss = val_epoch(model, valid_loader, criterion, cfg)
 
-            val_score = hasattr(metrics, cfg.common.metrics.name)(val_y, valid_preds)
+            val_score = factory.get_metrics(cfg.common.metrics.name)(val_y, valid_preds)
 
             train_loss_list.append(avg_loss)
             val_loss_list.append(avg_val_loss)
