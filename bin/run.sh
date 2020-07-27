@@ -14,7 +14,7 @@ cd ../src
 # python train.py -m 'efficientnetb3_012' -c 'image only, StratifiedGroupKFold, 5fold'
 # python train.py -m 'efficientnetb3_013' -c 'add external data'
 # python train.py -m 'efficientnetb3_014' -c 'epoch=20, external data, target_encoding'
-python train.py -m 'efficientnetb3_015' -c 'epoch=20, external data'
+# python train.py -m 'efficientnetb3_015' -c 'epoch=20, external data'
 
 # python train.py -m 'resnet18_001' -c 'test'
 # python train.py -m 'resnet18_002' -c 'base model'
@@ -27,7 +27,7 @@ python train.py -m 'efficientnetb3_015' -c 'epoch=20, external data'
 # python train.py -m 'se_resnext50_32x4d_002' -c 'size=512'
 
 # python ensemble.py -m 'ensemble_001' -c '3models'
-# python ensemble.py -m 'ensemble_002' -c '3models, rank_average'
+python ensemble.py -m 'ensemble_002' -c '3models, rank_average'
 
 cd ../
 git add -A
