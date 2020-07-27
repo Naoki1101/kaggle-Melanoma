@@ -139,11 +139,11 @@ class CustomCnn(nn.Module):
     def forward(self, x, feats):
         x = self.model(x)
 
-        # feats = self.bn1(feats)
-        # feats = self.linear1(feats)
+        feats = self.bn1(feats)
+        feats = self.linear1(feats)
 
-        # x = torch.cat([x, feats], axis=1)
-        # x = self.linear2(x)
+        x = torch.cat([x, feats], axis=1)
+        x = self.linear2(x)
         return x
 
 

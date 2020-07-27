@@ -40,15 +40,14 @@ class CustomDataset(Dataset):
 
     def __getitem__(self, idx):
         image_id = self.image_ids[idx]
-        if self.is_train:
-            if self.year[idx] == 2020:
-                image = cv2.imread(f'../data/input/jpeg_resized_{self.cfg.img_size.height}/train/{image_id}.png')
-            else:
-                image = cv2.imread(f'../data/input/2019_{self.cfg.img_size.height}/train/{image_id}.jpg')
-        else:
-            image = cv2.imread(f'../data/input/jpeg_resized_{self.cfg.img_size.height}/test/{image_id}.png')
+        if self.is_train and self.year[idx] == 2020:
+            image = cv2.imread(f'../data/input/jpeg_resized_{self.cfg.img_size.height}/train/{image_id}.jpg')
+        elif self.is_train and self.year[idx] == 2019:
+            image = cv2.imread(f'../data/input/2019_{self.cfg.img_size.height}/train/{image_id}.jpg')
+        elif not self.is_train:
+            image = cv2.imread(f'../data/input/jpeg_resized_{self.cfg.img_size.height}/test/{image_id}.jpg')
         image = 255 - (image * (255.0/image.max())).astype(np.uint8)
-        image = cv2.resize(image, dsize=(self.cfg.img_size.height, self.cfg.img_size.width))
+        # image = cv2.resize(image, dsize=(self.cfg.img_size.height, self.cfg.img_size.width))
         if self.transforms:
             image = self.transforms(image=image)['image']
         image = image.transpose(2, 0, 1).astype(np.float32)
