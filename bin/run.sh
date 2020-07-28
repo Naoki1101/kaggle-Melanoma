@@ -15,7 +15,8 @@ cd ../src
 # python train.py -m 'efficientnetb3_013' -c 'add external data'
 # python train.py -m 'efficientnetb3_014' -c 'epoch=20, external data, target_encoding'
 # python train.py -m 'efficientnetb3_015' -c 'epoch=20, external data'
-python train.py -m 'efficientnetb3_016' -c 'tta=5'
+# python train.py -m 'efficientnetb3_016' -c 'tta=5'
+python train.py -m 'efficientnetb3_017' -c '5fold, tta=5'
 
 # python train.py -m 'resnet18_001' -c 'test'
 # python train.py -m 'resnet18_002' -c 'base model'
