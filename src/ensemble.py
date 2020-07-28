@@ -73,7 +73,7 @@ def main():
                 model_oof = np.argsort(np.argsort(model_oof)) / (len(model_oof) - 1)
                 model_preds = np.argsort(np.argsort(model_preds)) / (len(model_preds) - 1)
 
-            oof[:, i] = model_oof
+            oof[:, i] = model_oof[:len(train_df)]
             preds[:, i] = model_preds
 
     with t.timer('drop index'):
