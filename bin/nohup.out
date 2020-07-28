@@ -10,3 +10,9 @@ Loaded pretrained weights for efficientnet-b3
   import imp
 Epoch 1 - avg_train_loss: 0.3724  avg_val_loss: 0.0926 val_score: 0.7927 time: 690s
 Terminated
+[master 5966d1b] ...
+ 4 files changed, 234 insertions(+), 1 deletion(-)
+ create mode 100644 bin/nohup.out
+ create mode 100644 configs/exp/efficientnetb4_002.yml
+To github.com:Naoki1101/kaggle-Melanoma.git
+   8bc999b..5966d1b  master -> master
