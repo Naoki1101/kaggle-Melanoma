@@ -77,6 +77,7 @@ def main():
                              , axis=0, sort=False, ignore_index=True)
         if cfg.validation.single:
             fold_df = fold_df[['fold_0']]
+            fold_df /= fold_df['fold_0'].max()
 
     with t.timer('load features'):
         features = dh.load('../configs/feature/all.yml')['features']
