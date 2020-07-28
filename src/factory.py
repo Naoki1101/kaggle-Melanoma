@@ -215,3 +215,11 @@ def get_fold(cfg, df, target):
 def get_metrics(cfg):
     evaluator = getattr(metrics, cfg)
     return evaluator
+
+
+def extend_data(array, idx):
+    result = np.repeat(np.nan, array)
+    idx_array = np.ones(len(array), dtype=bool)
+    idx_array[idx] = False
+    result[idx_array] = array
+    return result

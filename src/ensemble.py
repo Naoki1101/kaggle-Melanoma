@@ -78,8 +78,11 @@ def main():
 
     with t.timer('drop index'):
         if cfg.common.drop is not None:
-            drop_idx = factory.get_drop_idx(cfg.common.drop)
-            train_df = train_df.drop(drop_idx, axis=0).reset_index(drop=True)
+            drop_idxs = np.array([])
+            for drop_name in model_cfg.common.drop:
+                drop_idx = dh.load(f'../pickle/{drop_name}.npy')
+                drop_idxs = np.append(drop_idxs, drop_idx)
+            train_df = train_df.drop(drop_idxs, axis=0).reset_index(drop=True)
 
     with t.timer('optimize model weight'):
         metric = factory.get_metrics(cfg.common.metrics.name)
