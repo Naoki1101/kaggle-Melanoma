@@ -1,0 +1,12 @@
+[load data] done in 0 s (Total: 0.10 sec)
+[make folds] done in 2 s (Total: 2.24 sec)
+[load features] done in 0 s (Total: 2.36 sec)
+[drop several rows] done in 0 s (Total: 2.36 sec)
+
+========================== FOLD 0 ... ==========================
+
+Loaded pretrained weights for efficientnet-b3
+/home/naoki/.pyenv/versions/3.7.2/lib/python3.7/site-packages/sklearn/externals/joblib/externals/cloudpickle/cloudpickle.py:47: DeprecationWarning: the imp module is deprecated in favour of importlib; see the module's documentation for alternative uses
+  import imp
+Epoch 1 - avg_train_loss: 0.3724  avg_val_loss: 0.0926 val_score: 0.7927 time: 690s
+Terminated

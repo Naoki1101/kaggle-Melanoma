@@ -12,6 +12,7 @@ class BCEWithLogitsLoss(nn.Module):
         return self.bcel(yhat, y)
 
 
+# https://www.kaggle.com/c/siim-isic-melanoma-classification/discussion/162035#905556
 class WeightedFocalLoss(nn.Module):
     "Weighted version of Focal Loss"
     def __init__(self, alpha=.25, gamma=2):

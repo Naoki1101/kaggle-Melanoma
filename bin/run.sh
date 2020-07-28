@@ -17,9 +17,10 @@ cd ../src
 # python train.py -m 'efficientnetb3_015' -c 'epoch=20, external data'
 # python train.py -m 'efficientnetb3_016' -c 'tta=5'
 # python train.py -m 'efficientnetb3_017' -c '5fold, tta=5'
-python train.py -m 'efficientnetb3_018' -c 'WeightedFocalLoss'
+# python train.py -m 'efficientnetb3_018' -c 'WeightedFocalLoss'
 
 # python train.py -m 'efficientnetb4_001' -c 'external data'
+python train.py -m 'efficientnetb4_002' -c '5fold, tta=5'
 
 # python train.py -m 'resnet18_001' -c 'test'
 # python train.py -m 'resnet18_002' -c 'base model'
