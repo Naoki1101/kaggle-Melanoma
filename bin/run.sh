@@ -18,6 +18,8 @@ cd ../src
 # python train.py -m 'efficientnetb3_016' -c 'tta=5'
 # python train.py -m 'efficientnetb3_017' -c '5fold, tta=5'
 
+python train.py -m 'efficientnetb4_001' -c 'external data'
+
 # python train.py -m 'resnet18_001' -c 'test'
 # python train.py -m 'resnet18_002' -c 'base model'
 # python train.py -m 'resnet18_003' -c 'modify head'
@@ -30,7 +32,7 @@ cd ../src
 
 # python ensemble.py -m 'ensemble_001' -c '3models'
 # python ensemble.py -m 'ensemble_002' -c '3models, rank_average'
-python ensemble.py -m 'ensemble_003' -c '4models, rank_average'
+# python ensemble.py -m 'ensemble_003' -c '4models, rank_average'
 
 cd ../
 git add -A

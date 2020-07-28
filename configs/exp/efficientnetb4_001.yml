@@ -1,0 +1,157 @@
+common:
+    seed: &seed 2020
+    target: target
+    metrics:
+        name: auc
+        params: {}
+    drop:
+    kaggle:
+        submit: False
+
+model:
+    name: efficientnet_b4
+    n_channels: &channel 3
+    n_classes: 1
+    pretrained: True
+    multi_gpu: True
+    avgpool:
+        name: GeM
+        params: {}
+    head:
+        act:
+            name: ReLU
+            params: {}
+        batch_norm: 
+            name: BatchNorm1d
+            params:
+                num_features: 1536
+        drop:
+            name: Dropout
+            params:
+                p: 0.3
+        linear:
+            name: Linear
+            params:
+                in_features: 1536
+                out_features: 256
+        act2:
+            name: ReLU
+            params: {}
+        batch_norm2: 
+            name: BatchNorm1d
+            params:
+                num_features: 256
+        drop2:
+            name: Dropout
+            params:
+                p: 0.3
+        linear2:
+            name: Linear
+            params:
+                in_features: 256
+                out_features: 128
+    metric:
+
+validation:
+    name: StratifiedGroupKFold
+    params:
+        n_splits: 5
+    split:
+        y: target
+        groups: patient_id
+    weight:
+        - 0.2
+    single: True
+
+data:
+    train:
+        dataset_type: CustomDataset
+        is_train: True
+        img_size:
+            width: &wsize 384
+            height: &hsize 384
+        n_channels: *channel
+        epochs: 10
+        loader:
+            shuffle: True
+            batch_size: 32
+            num_workers: 4
+        transforms:
+            hflip:
+                name: HorizontalFlip
+                params:
+                    p: 0.5
+            vflip:
+                name: VerticalFlip
+                params:
+                    p: 0.5
+            rotate:
+                name: Rotate
+                params:
+                    p: 0.5
+                    limit: 20
+            cutout:
+                name: Cutout
+                params:
+                    p: 0.5
+                    num_holes: 20
+                    max_h_size: 10
+                    max_w_size: 10
+            rrcrop:
+                name: RandomResizedCrop
+                params:
+                    height: 384
+                    width: 384
+                    scale:
+                        - 0.5
+                        - 1.0
+                    ratio:
+                        - 0.75
+                        - 1.33
+            microscope:
+                name: Microscope
+                params:
+                    p: 0.5
+    valid:
+        dataset_type: CustomDataset
+        is_train: True
+        img_size:
+            width: *wsize
+            height: *hsize
+        n_channels: *channel
+        loader:
+            shuffle: False
+            batch_size: 16
+            num_workers: 4
+        transforms:
+        tta:
+            iter_num: 1
+    test:
+        dataset_type: CustomDataset
+        is_train: False
+        img_size:
+            width: *wsize
+            height: *hsize
+        n_channels: *channel
+        loader:
+            shuffle: False
+            batch_size: 16
+            num_workers: 4
+        transforms:
+        tta:
+            iter_num: 1
+
+loss: 
+    name: BCEWithLogitsLoss
+    params: {}
+
+optimizer:
+    name: Adam
+    params:
+        lr: 0.0001
+
+scheduler:
+    name: ReduceLROnPlateau
+    params:
+        factor: 0.5
+        patience: 3
