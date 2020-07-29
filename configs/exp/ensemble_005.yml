@@ -1,0 +1,28 @@
+common:
+    seed: &seed 2020
+    target: target
+    metrics:
+        name: auc
+        params: {}
+    drop:
+    kaggle:
+        submit: False
+
+
+data:
+    sample:
+        name: sample_submission
+    drop:
+        name:
+    option:
+        rank_avg: True
+    models:
+        model1:
+            name: efficientnetb3_012_20200726182825_0.872
+        model2:
+            name: efficientnetb3_017_20200728090723_0.918
+        model3:
+            name: efficientnetb4_002_20200728233408_0.887
+        model4:
+            name: efficientnetb3_019_20200729142059_0.923
+
