@@ -132,6 +132,7 @@ def train_model(run_name, df, fold_df, cfg):
         save_png(run_name, cfg, train_loss_list, val_loss_list, val_score_list, fold_)
 
         print(f'\nEpoch {best_epoch} - val_score: {best_val_score:.4f}')
+        logging.debug(f'\nEpoch {best_epoch} - val_score: {best_val_score:.4f}')
 
     print('\n\n===================================\n')
     print(f'CV: {cv:.6f}')
