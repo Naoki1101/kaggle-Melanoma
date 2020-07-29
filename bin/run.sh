@@ -20,7 +20,7 @@ cd ../src
 # python train.py -m 'efficientnetb3_018' -c 'WeightedFocalLoss'
 
 # python train.py -m 'efficientnetb4_001' -c 'external data'
-python train.py -m 'efficientnetb4_002' -c '5fold, tta=5'
+# python train.py -m 'efficientnetb4_002' -c '5fold, tta=5'
 
 # python train.py -m 'resnet18_001' -c 'test'
 # python train.py -m 'resnet18_002' -c 'base model'
@@ -35,6 +35,7 @@ python train.py -m 'efficientnetb4_002' -c '5fold, tta=5'
 # python ensemble.py -m 'ensemble_001' -c '3models'
 # python ensemble.py -m 'ensemble_002' -c '3models, rank_average'
 # python ensemble.py -m 'ensemble_003' -c '4models, rank_average'
+python ensemble.py -m 'ensemble_004' -c '5models, rank_average'
 
 cd ../
 git add -A
