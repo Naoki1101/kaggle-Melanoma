@@ -172,7 +172,7 @@ class CustomCnn(nn.Module):
         x = self.linear4(x)
 
         return x
-abdl
+
 
 def get_model(cfg, is_train=True):
     model = model_encoder[cfg.model.name](pretrained=cfg.model.pretrained)
