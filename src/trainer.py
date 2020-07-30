@@ -30,7 +30,7 @@ def mixup(images, feats, targets, alpha):
     feats = feats * lam + shuffled_feats * (1 - lam)
     targets = targets * lam + shuffled_targets * (1 - lam)
 
-    return data, feats, targets
+    return images, feats, targets
 
 
 def train_epoch(model, train_loader, criterion, optimizer, mb, cfg):
@@ -44,7 +44,7 @@ def train_epoch(model, train_loader, criterion, optimizer, mb, cfg):
 
         r = np.random.rand()
         if cfg.data.train.mixup and r < 0.5:
-            images, feats, targets = mixup(images, feats, labels, 1.0)
+            images, feats, labels = mixup(images, feats, labels, 1.0)
 
         preds = model(images.float(), feats.float())
 
