@@ -133,21 +133,22 @@ class CustomCnn(nn.Module):
         super(CustomCnn, self).__init__()
         self.model = model
         self.linear1 = nn.Linear(4, 16)
-        self.linear2 = nn.Linear(16, 128)
-        self.linear3 = nn.Linear(256, 256)
-        self.linear4 = nn.Linear(256, 1)
+        self.linear2 = nn.Linear(16, 16)
+        self.linear3 = nn.Linear(144, 128)
+        self.linear4 = nn.Linear(128, 1)
 
         self.bn1 = nn.BatchNorm1d(4)
         self.bn2 = nn.BatchNorm1d(16)
-        self.bn3 = nn.BatchNorm1d(256)
+        self.bn3 = nn.BatchNorm1d(144)
+        self.bn4 = nn.BatchNorm1d(128)
 
         self.act1 = nn.ReLU()
         self.act2 = nn.ReLU()
         self.act3 = nn.ReLU()
 
-        self.drop1 = nn.Dropout(p=0.2)
-        self.drop2 = nn.Dropout(p=0.5)
-        self.drop3 = nn.Dropout(p=0.5)
+        self.drop1 = nn.Dropout(p=0.3)
+        self.drop2 = nn.Dropout(p=0.3)
+        self.drop3 = nn.Dropout(p=0.3)
 
     def forward(self, x, feats):
         x = self.model(x)
