@@ -20,7 +20,7 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 
 def mixup(images, feats, targets, alpha):
-    indices = torch.randperm(data.size(0))
+    indices = torch.randperm(images.size(0))
     shuffled_images = images[indices]
     shuffled_feats = feats[indices]
     shuffled_targets = targets[indices]
