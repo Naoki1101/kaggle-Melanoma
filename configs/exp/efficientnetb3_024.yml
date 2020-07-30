@@ -61,7 +61,7 @@ validation:
         groups: patient_id
     weight:
         - 0.2
-    single: False
+    single: True
 
 data:
     train:
@@ -108,6 +108,7 @@ data:
                     ratio:
                         - 0.75
                         - 1.33
+        mixup: True
     valid:
         dataset_type: CustomDataset
         is_train: True

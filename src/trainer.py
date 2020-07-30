@@ -19,6 +19,20 @@ import factory
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 
+def mixup(images, feats, targets, alpha):
+    indices = torch.randperm(data.size(0))
+    shuffled_images = images[indices]
+    shuffled_feats = feats[indices]
+    shuffled_targets = targets[indices]
+
+    lam = np.random.beta(alpha, alpha)
+    images = images * lam + shuffled_images * (1 - lam)
+    feats = feats * lam + shuffled_feats * (1 - lam)
+    targets = targets * lam + shuffled_targets * (1 - lam)
+
+    return data, feats, targets
+
+
 def train_epoch(model, train_loader, criterion, optimizer, mb, cfg):
     model.train()
     avg_loss = 0.
@@ -27,6 +41,10 @@ def train_epoch(model, train_loader, criterion, optimizer, mb, cfg):
         images = images.to(device)
         feats = feats.to(device)
         labels = labels.to(device)
+
+        r = np.random.rand()
+        if cfg.data.train.mixup and r < 0.5:
+            images, feats, targets = mixup(images, feats, labels, 1.0)
 
         preds = model(images.float(), feats.float())
 

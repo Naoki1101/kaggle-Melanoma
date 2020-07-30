@@ -22,7 +22,8 @@ cd ../src
 # python train.py -m 'efficientnetb3_020' -c '512, 5fold, tta=5, WeightedFocalLoss'
 # python train.py -m 'efficientnetb3_021' -c '512, single fold, tta=10, WeightedFocalLoss'
 # python train.py -m 'efficientnetb3_022' -c '512, single fold, tta=10, WeightedFocalLoss, remove Microscope'
-python train.py -m 'efficientnetb3_023' -c '512, single fold, tta=10, WeightedFocalLoss, modify head'
+# python train.py -m 'efficientnetb3_023' -c '512, single fold, tta=10, WeightedFocalLoss, modify head'
+python train.py -m 'efficientnetb3_024' -c 'mixup'
 
 # python train.py -m 'efficientnetb4_001' -c 'external data'
 # python train.py -m 'efficientnetb4_002' -c '5fold, tta=5'
