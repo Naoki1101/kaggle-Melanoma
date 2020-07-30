@@ -133,19 +133,46 @@ class CustomCnn(nn.Module):
         super(CustomCnn, self).__init__()
         self.model = model
         self.linear1 = nn.Linear(4, 16)
-        self.linear2 = nn.Linear(144, 1)
+        self.linear2 = nn.Linear(16, 128)
+        self.linear3 = nn.Linear(256, 256)
+        self.linear4 = nn.Linear(256, 1)
+
         self.bn1 = nn.BatchNorm1d(4)
+        self.bn2 = nn.BatchNorm1d(16)
+        self.bn3 = nn.BatchNorm1d(256)
+
+        self.act1 = nn.ReLU()
+        self.act2 = nn.ReLU()
+        self.act3 = nn.ReLU()
+
+        self.drop1 = nn.Dropout(p=0.2)
+        self.drop2 = nn.Dropout(p=0.5)
+        self.drop3 = nn.Dropout(p=0.5)
 
     def forward(self, x, feats):
         x = self.model(x)
 
         feats = self.bn1(feats)
         feats = self.linear1(feats)
+        feats = self.act1(feats)
+        feats = self.dropout1(feats)
+
+        feats = self.bn2(feats)
+        feats = self.linear2(feats)
+        feats = self.act2(feats)
+        feats = self.dropout2(feats)
 
         x = torch.cat([x, feats], axis=1)
-        x = self.linear2(x)
-        return x
+        x = self.bn3(x)
+        x = self.linear3(x)
+        x = self.act3(x)
+        x = self.drop3(x)
 
+        x = self.bn4(x)
+        x = self.linear4(x)
+
+        return x
+abdl
 
 def get_model(cfg, is_train=True):
     model = model_encoder[cfg.model.name](pretrained=cfg.model.pretrained)
