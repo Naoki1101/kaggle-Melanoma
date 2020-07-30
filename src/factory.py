@@ -155,12 +155,12 @@ class CustomCnn(nn.Module):
         feats = self.bn1(feats)
         feats = self.linear1(feats)
         feats = self.act1(feats)
-        feats = self.dropout1(feats)
+        feats = self.drop1(feats)
 
         feats = self.bn2(feats)
         feats = self.linear2(feats)
         feats = self.act2(feats)
-        feats = self.dropout2(feats)
+        feats = self.drop2(feats)
 
         x = torch.cat([x, feats], axis=1)
         x = self.bn3(x)
