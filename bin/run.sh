@@ -25,6 +25,7 @@ cd ../src
 # python train.py -m 'efficientnetb3_023' -c '512, single fold, tta=10, WeightedFocalLoss, modify head'
 # python train.py -m 'efficientnetb3_024' -c 'mixup'
 # python train.py -m 'efficientnetb3_025' -c '512, 5fold, tta=10, WeightedFocalLoss, modify head'
+python train.py -m 'efficientnetb3_026' -c 'tta=15'
 
 # python train.py -m 'efficientnetb4_001' -c 'external data'
 # python train.py -m 'efficientnetb4_002' -c '5fold, tta=5'
@@ -45,7 +46,7 @@ cd ../src
 # python ensemble.py -m 'ensemble_004' -c '5models, rank_average'
 # python ensemble.py -m 'ensemble_005' -c '4models, rank_average'
 # python ensemble.py -m 'ensemble_006' -c '5models, rank_average'
-python ensemble.py -m 'ensemble_007' -c '6models, rank_average'
+# python ensemble.py -m 'ensemble_007' -c '6models, rank_average'
 
 cd ../
 git add -A
