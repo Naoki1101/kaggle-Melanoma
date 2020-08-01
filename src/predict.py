@@ -40,7 +40,7 @@ def predict_fold(run_name, df, cfg, fold_num):
                 feats = feats.to(device)
 
                 preds = model(images.float(), feats.float())
-                test_preds[i * test_batch_size: (i + 1) * test_batch_size, t * cfg.model.n_classes: (t + 1) * cfg.model.n_classes] = logits.cpu().detach().numpy()
+                test_preds[i * test_batch_size: (i + 1) * test_batch_size, t * cfg.model.n_classes: (t + 1) * cfg.model.n_classes] = preds.cpu().detach().numpy()
 
         test_preds_tta = np.max(test_preds, axis=1)
 

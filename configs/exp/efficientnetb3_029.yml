@@ -6,7 +6,7 @@ common:
         params: {}
     drop:
     kaggle:
-        submit: False
+        submit: True
 
 model:
     name: efficientnet_b3
@@ -71,7 +71,7 @@ data:
             width: &wsize 384
             height: &hsize 384
         n_channels: *channel
-        epochs: 1
+        epochs: 10
         loader:
             shuffle: True
             batch_size: 32
@@ -142,20 +142,24 @@ data:
                 name: Cutout
                 params:
                     p: 0.5
-                    num_holes: 20
-                    max_h_size: 10
-                    max_w_size: 10
+                    num_holes: 10
+                    max_h_size: 30
+                    max_w_size: 30
             rrcrop:
                 name: RandomResizedCrop
                 params:
-                    height: 384
-                    width: 384
+                    height: *wsize
+                    width: *hsize
                     scale:
-                        - 0.5
+                        - 0.3
                         - 1.0
                     ratio:
                         - 0.75
                         - 1.33
+            bright:
+                name: RandomBrightness
+                params:
+                    p: 0.5
         tta:
             iter_num: 10
     test:
@@ -187,20 +191,24 @@ data:
                 name: Cutout
                 params:
                     p: 0.5
-                    num_holes: 20
-                    max_h_size: 10
-                    max_w_size: 10
+                    num_holes: 10
+                    max_h_size: 30
+                    max_w_size: 30
             rrcrop:
                 name: RandomResizedCrop
                 params:
-                    height: 384
-                    width: 384
+                    height: *wsize
+                    width: *hsize
                     scale:
-                        - 0.5
+                        - 0.3
                         - 1.0
                     ratio:
                         - 0.75
                         - 1.33
+            bright:
+                name: RandomBrightness
+                params:
+                    p: 0.5
         tta:
             iter_num: 10
 
