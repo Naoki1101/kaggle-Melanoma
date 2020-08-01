@@ -26,7 +26,9 @@ cd ../src
 # python train.py -m 'efficientnetb3_024' -c 'mixup'
 # python train.py -m 'efficientnetb3_025' -c '512, 5fold, tta=10, WeightedFocalLoss, modify head'
 # python train.py -m 'efficientnetb3_026' -c 'tta=15'
-python train.py -m 'efficientnetb3_027' -c '512, 5fold, tta=10, WeightedFocalLoss, modify head, add age'
+# python train.py -m 'efficientnetb3_027' -c '512, 5fold, tta=10, WeightedFocalLoss, modify head, add age'
+# python train.py -m 'efficientnetb3_028' -c '384, 1fold, tta=10, CosineAnnealingLR, brightness'
+python train.py -m 'efficientnetb3_029' -c '384, 1fold, tta=10, CosineAnnealingLR, brightness, max-avg'
 
 # python train.py -m 'efficientnetb4_001' -c 'external data'
 # python train.py -m 'efficientnetb4_002' -c '5fold, tta=5'
