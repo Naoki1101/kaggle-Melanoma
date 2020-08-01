@@ -78,7 +78,7 @@ def val_epoch(model, valid_loader, criterion, cfg):
                 valid_preds[i * valid_batch_size: (i + 1) * valid_batch_size, t * cfg.model.n_classes: (t + 1) * cfg.model.n_classes] = preds.cpu().detach().numpy()
                 avg_val_loss += loss.item() / (len(valid_loader) * cfg.data.valid.tta.iter_num)
     
-    valid_preds_tta = np.mean(valid_preds, axis=1)
+    valid_preds_tta = np.max(valid_preds, axis=1)
     valid_preds_tta = 1 / (1 + np.exp(-valid_preds_tta))
 
     return valid_preds_tta, avg_val_loss
