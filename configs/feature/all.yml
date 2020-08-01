@@ -25,6 +25,7 @@ features:
 - one_hot_site_palms-soles
 - one_hot_site_torso
 - one_hot_site_upper extremity
+- target_encoding_age
 - target_encoding_age_approx
 - target_encoding_age_site
 - target_encoding_sex

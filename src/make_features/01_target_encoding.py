@@ -38,8 +38,8 @@ def get_features(train, test):
     test_features_df['target_encoding_sex'] = te.transform(test['sex'])
 
     te = TargetEncoding(fold_df)
-    train_features_df['target_encoding_age'] = te.fit_transform(train['age'], train['target'])
-    test_features_df['target_encoding_age'] = te.transform(test['age'])
+    train_features_df['target_encoding_age'] = te.fit_transform(train['age_approx'], train['target'])
+    test_features_df['target_encoding_age'] = te.transform(test['age_approx'])
 
     te = TargetEncoding(fold_df)
     train_features_df['target_encoding_age_approx'] = te.fit_transform(train['age_approx'], train['target'])

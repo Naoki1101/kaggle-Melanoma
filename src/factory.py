@@ -132,12 +132,12 @@ class CustomCnn(nn.Module):
     def __init__(self, model):
         super(CustomCnn, self).__init__()
         self.model = model
-        self.linear1 = nn.Linear(4, 16)
+        self.linear1 = nn.Linear(5, 16)
         self.linear2 = nn.Linear(16, 16)
         self.linear3 = nn.Linear(144, 128)
         self.linear4 = nn.Linear(128, 1)
 
-        self.bn1 = nn.BatchNorm1d(4)
+        self.bn1 = nn.BatchNorm1d(5)
         self.bn2 = nn.BatchNorm1d(16)
         self.bn3 = nn.BatchNorm1d(144)
         self.bn4 = nn.BatchNorm1d(128)
