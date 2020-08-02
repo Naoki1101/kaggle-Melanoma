@@ -144,7 +144,7 @@ loss:
 optimizer:
     name: Adam
     params:
-        lr: 0.0001
+        lr: 0.000015
 
 scheduler:
     name: CosineAnnealingLR

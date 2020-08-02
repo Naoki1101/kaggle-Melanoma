@@ -9,7 +9,7 @@ common:
         submit: False
 
 model:
-    name: efficientnet_b3
+    name: se_resnext50_32x4d
     n_channels: &channel 3
     n_classes: 1
     pretrained: True
@@ -90,19 +90,8 @@ data:
                 params:
                     p: 0.5
                     limit: 20
-            rrcrop:
-                name: RandomResizedCrop
-                params:
-                    height: *wsize
-                    width: *hsize
-                    scale:
-                        - 0.3
-                        - 1.0
-                    ratio:
-                        - 0.75
-                        - 1.33
-            bright:
-                name: RandomBrightness
+            augmix:
+                name: RandomAugMix
                 params:
                     p: 0.5
         mixup: False

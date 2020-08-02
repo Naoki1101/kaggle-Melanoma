@@ -9,7 +9,7 @@ common:
         submit: False
 
 model:
-    name: efficientnet_b3
+    name: efficientnet_b4
     n_channels: &channel 3
     n_classes: 1
     pretrained: True
@@ -68,13 +68,13 @@ data:
         dataset_type: CustomDataset
         is_train: True
         img_size:
-            width: &wsize 384
-            height: &hsize 384
+            width: &wsize 512
+            height: &hsize 512
         n_channels: *channel
         epochs: 10
         loader:
             shuffle: True
-            batch_size: 32
+            batch_size: 16
             num_workers: 4
         transforms:
             hflip:
@@ -96,15 +96,11 @@ data:
                     height: *wsize
                     width: *hsize
                     scale:
-                        - 0.3
+                        - 0.5
                         - 1.0
                     ratio:
                         - 0.75
                         - 1.33
-            bright:
-                name: RandomBrightness
-                params:
-                    p: 0.5
         mixup: False
     valid:
         dataset_type: CustomDataset
@@ -147,7 +143,7 @@ optimizer:
         lr: 0.0001
 
 scheduler:
-    name: CosineAnnealingLR
+    name: ReduceLROnPlateau
     params:
-        eta_min: 0.000001
-        T_max: 10
+        factor: 0.5
+        patience: 3
