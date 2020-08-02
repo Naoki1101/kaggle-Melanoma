@@ -35,7 +35,8 @@ cd ../src
 # python train.py -m 'efficientnetb3_033' -c '384, 1fold, tta=1, remove cutout, lr=1.5e-5'
 # python train.py -m 'efficientnetb3_034' -c '384, 1fold, tta=10, Augmix'
 # python train.py -m 'efficientnetb3_035' -c '512, 1fold, tta=1, remove cutout'
-python train.py -m 'efficientnetb3_036' -c '384, 1fold, tta=1, Augmix'
+# python train.py -m 'efficientnetb3_036' -c '384, 1fold, tta=1, Augmix'
+# python train.py -m 'efficientnetb3_037' -c '384, 5fold, tta=10, Augmix'
 
 # python train.py -m 'efficientnetb4_001' -c 'external data'
 # python train.py -m 'efficientnetb4_002' -c '5fold, tta=5'
@@ -51,6 +52,9 @@ python train.py -m 'efficientnetb3_036' -c '384, 1fold, tta=1, Augmix'
 # python train.py -m 'se_resnext50_32x4d_001' -c 'base model'
 # python train.py -m 'se_resnext50_32x4d_002' -c 'size=512'
 # python train.py -m 'se_resnext50_32x4d_003' -c '384, 1fold, tta=1, Augmix'
+
+python train.py -m 'resnet50_001' -c 'test'
+
 
 # python ensemble.py -m 'ensemble_001' -c '3models'
 # python ensemble.py -m 'ensemble_002' -c '3models, rank_average'

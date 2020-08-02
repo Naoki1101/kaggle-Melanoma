@@ -1,4 +1,5 @@
 features:
+- height
 - one_hot_age_0.0
 - one_hot_age_10.0
 - one_hot_age_15.0
@@ -30,3 +31,4 @@ features:
 - target_encoding_age_site
 - target_encoding_sex
 - target_encoding_site
+- width

@@ -1,13 +1,15 @@
 import sys
 import pandas as pd
 from tqdm import tqdm
-import multiprocessing
+import pydicom as dicom
+from pandarallel import pandarallel
 
 sys.path.append('../src')
 from utils import DataHandler
 from feature_utils import save_features
 
 dh = DataHandler()
+pandarallel.initialize(progress_bar=True)
 
 
 def extract_train_height(image_name):
@@ -16,7 +18,7 @@ def extract_train_height(image_name):
     return height
 
 
-def extract_train_height(image_name):
+def extract_train_width(image_name):
     ds = dicom.dcmread(f'../data/input/train/{image_name}.dcm')
     width = ds.pixel_array.shape[1]
     return width
@@ -28,7 +30,7 @@ def extract_test_height(image_name):
     return height
 
 
-def extract_test_height(image_name):
+def extract_test_width(image_name):
     ds = dicom.dcmread(f'../data/input/test/{image_name}.dcm')
     width = ds.pixel_array.shape[1]
     return width
@@ -38,13 +40,11 @@ def get_features(train, test):
     train_features_df = pd.DataFrame()
     test_features_df = pd.DataFrame()
 
-    train_hsize, train_wsize = extract_image_size(train, 'train')
-    train_features_df['height'] = train_hsize
-    train_features_df['width'] = train_wsize
+    train_features_df['height'] = train['image_name'].parallel_apply(extract_train_height)
+    train_features_df['width'] = train['image_name'].parallel_apply(extract_train_width)
 
-    test_hsize, test_wsize = extract_image_size(test, 'test')
-    test_features_df['height'] = test_hsize
-    test_features_df['width'] = test_wsize
+    test_features_df['height'] = test['image_name'].parallel_apply(extract_test_height)
+    test_features_df['width'] = test['image_name'].parallel_apply(extract_test_width)
 
     return train_features_df, test_features_df
 

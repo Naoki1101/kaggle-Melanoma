@@ -9,7 +9,7 @@ common:
         submit: False
 
 model:
-    name: efficientnet_b3
+    name: resnest50
     n_channels: &channel 3
     n_classes: 1
     pretrained: True
@@ -24,7 +24,7 @@ model:
         batch_norm: 
             name: BatchNorm1d
             params:
-                num_features: 1536
+                num_features: 73728
         drop:
             name: Dropout
             params:
@@ -32,7 +32,7 @@ model:
         linear:
             name: Linear
             params:
-                in_features: 1536
+                in_features: 73728
                 out_features: 256
         act2:
             name: ReLU
@@ -71,7 +71,7 @@ data:
             width: &wsize 384
             height: &hsize 384
         n_channels: *channel
-        epochs: 10
+        epochs: 1
         loader:
             shuffle: True
             batch_size: 32
