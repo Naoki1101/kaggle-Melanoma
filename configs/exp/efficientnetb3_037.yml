@@ -6,7 +6,7 @@ common:
         params: {}
     drop:
     kaggle:
-        submit: False
+        submit: True
 
 model:
     name: efficientnet_b3
