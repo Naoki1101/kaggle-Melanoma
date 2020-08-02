@@ -24,7 +24,7 @@ model:
         batch_norm: 
             name: BatchNorm1d
             params:
-                num_features: 1536
+                num_features: 73728
         drop:
             name: Dropout
             params:
@@ -32,7 +32,7 @@ model:
         linear:
             name: Linear
             params:
-                in_features: 1536
+                in_features: 73728
                 out_features: 256
         act2:
             name: ReLU
