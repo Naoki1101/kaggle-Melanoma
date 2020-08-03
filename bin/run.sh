@@ -53,7 +53,7 @@ cd ../src
 # python train.py -m 'se_resnext50_32x4d_002' -c 'size=512'
 # python train.py -m 'se_resnext50_32x4d_003' -c '384, 1fold, tta=1, Augmix'
 
-python train.py -m 'resnest50_001' -c 'test'
+# python train.py -m 'resnest50_001' -c 'test'
 
 
 # python ensemble.py -m 'ensemble_001' -c '3models'
@@ -63,8 +63,9 @@ python train.py -m 'resnest50_001' -c 'test'
 # python ensemble.py -m 'ensemble_005' -c '4models, rank_average'
 # python ensemble.py -m 'ensemble_006' -c '5models, rank_average'
 # python ensemble.py -m 'ensemble_007' -c '6models, rank_average'
+# python ensemble.py -m 'ensemble_008' -c '7models, rank_average'
 
-# cd ../
-# git add -A
-# git commit -m '...'
-# git push origin master
+cd ../
+git add -A
+git commit -m '...'
+git push origin master

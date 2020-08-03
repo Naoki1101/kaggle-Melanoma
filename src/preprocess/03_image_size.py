@@ -6,7 +6,6 @@ from pandarallel import pandarallel
 
 sys.path.append('../src')
 from utils import DataHandler
-from feature_utils import save_features
 
 dh = DataHandler()
 pandarallel.initialize(progress_bar=True)
@@ -37,8 +36,8 @@ def extract_test_width(image_name):
 
 
 def get_features(train, test):
-    train_features_df = pd.DataFrame()
-    test_features_df = pd.DataFrame()
+    train_features_df = train[['image_name']]
+    test_features_df = test[['image_name']]
 
     train_features_df['height'] = train['image_name'].parallel_apply(extract_train_height)
     train_features_df['width'] = train['image_name'].parallel_apply(extract_train_width)
@@ -55,8 +54,8 @@ def main():
 
     train_features_df, test_features_df = get_features(train_df, test_df)
 
-    save_features(train_features_df, data_type='train')
-    save_features(test_features_df, data_type='test')
+    train_features_df.to_csv('../data/input/train_image_size.csv', index=False)
+    test_features_df.to_csv('../data/input/test_image_size.csv', index=False)
 
 
 if __name__ == '__main__':
