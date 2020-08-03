@@ -38,7 +38,8 @@ cd ../src
 # python train.py -m 'efficientnetb3_036' -c '384, 1fold, tta=1, Augmix'
 # python train.py -m 'efficientnetb3_037' -c '384, 5fold, tta=10, Augmix'
 # python train.py -m 'efficientnetb3_038' -c '384, 1fold, tta=1, Augmix, target_encoding_size'
-python train.py -m 'efficientnetb3_039' -c '384, 1fold, tta=1, Augmix, rondom crop'
+# python train.py -m 'efficientnetb3_039' -c '384, 1fold, tta=1, Augmix, rondom crop'
+python train.py -m 'efficientnetb3_040' -c '384, 1fold, tta=1, Augmix, Norm'
 
 # python train.py -m 'efficientnetb4_001' -c 'external data'
 # python train.py -m 'efficientnetb4_002' -c '5fold, tta=5'
