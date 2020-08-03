@@ -9,7 +9,7 @@ common:
         submit: False
 
 model:
-    name: efficientnet_b3
+    name: efficientnet_b4
     n_channels: &channel 3
     n_classes: 1
     pretrained: True
