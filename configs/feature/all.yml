@@ -31,4 +31,5 @@ features:
 - target_encoding_age_site
 - target_encoding_sex
 - target_encoding_site
+- target_encoding_size
 - width

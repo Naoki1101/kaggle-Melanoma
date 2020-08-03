@@ -17,6 +17,9 @@ def get_features(train, test):
     train['age_site'] = train['age_approx'].astype(str) + '_' + train['anatom_site_general_challenge']
     test['age_site'] = test['age_approx'].astype(str) + '_' + test['anatom_site_general_challenge']
 
+    train['size'] = train['height'].astype(str) + '-' + train['width'].astype(str)
+    test['size'] = test['age_approx'].astype(str) + '-' + test['width'].astype(str)
+
     # TargetEncoding
     cfg = edict({
         'name': 'StratifiedKFold',
@@ -53,12 +56,29 @@ def get_features(train, test):
     train_features_df['target_encoding_age_site'] = te.fit_transform(train['age_site'], train['target'])
     test_features_df['target_encoding_age_site'] = te.transform(test['age_site'])
 
+    te = TargetEncoding(fold_df)
+    train_features_df['target_encoding_size'] = te.fit_transform(train['size'], train['target'])
+    test_features_df['target_encoding_size'] = te.transform(test['size'])
+
     return train_features_df, test_features_df
 
 
 def main():
     train_df = dh.load('../data/input/train_concated.csv')
     test_df = dh.load('../data/input/test.csv')
+
+    train2020_size_df = pd.read_csv('../data/input/train_image_size.csv')
+    train2019_size_df = pd.read_csv('../data/input/train_2019.csv', usecols=['image_name', 'height', 'width'])
+
+    train_size_df = pd.concat([
+        train2020_size_df,
+        train2019_size_df
+    ], axis=0, sort=False, ignore_index=True)
+
+    test_size_df = pd.read_csv('../data/input/test_image_size.csv')
+
+    train_df = train_df.merge(train_size_df, on='image_name', how='left')
+    test_df = test_df.merge(test_size_df, on='image_name', how='left')
 
     train_features_df, test_features_df = get_features(train_df, test_df)
 
