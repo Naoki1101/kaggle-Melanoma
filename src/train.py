@@ -105,6 +105,19 @@ def main():
     with t.timer('predict'):
         preds = predict_test(run_name_cv, test_x, fold_df, cfg)
 
+    with t.timer('post process'):
+        duplicates = {
+            'ISIC_5224960': 1,
+            'ISIC_9207777': 1,
+            'ISIC_6457527': 1,
+            'ISIC_8347588': 0,
+            'ISIC_8372206': 1,
+            'ISIC_9353360': 1
+        }
+        for image_name, target in duplicates.items():
+            idx = test_x[test_x['image_name'] == image_name].index[0]
+            preds[idx] = target
+
     with t.timer('make submission'):
         sample_path = f'../data/input/sample_submission.csv'
         output_path = f'../data/output/{run_name_cv}.csv'

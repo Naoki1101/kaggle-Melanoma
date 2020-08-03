@@ -39,7 +39,7 @@ cd ../src
 # python train.py -m 'efficientnetb3_037' -c '384, 5fold, tta=10, Augmix'
 # python train.py -m 'efficientnetb3_038' -c '384, 1fold, tta=1, Augmix, target_encoding_size'
 # python train.py -m 'efficientnetb3_039' -c '384, 1fold, tta=1, Augmix, rondom crop'
-python train.py -m 'efficientnetb3_040' -c '384, 1fold, tta=1, Augmix, Norm'
+# python train.py -m 'efficientnetb3_040' -c '384, 1fold, tta=1, Augmix, modify target_encoding_size'
 
 # python train.py -m 'efficientnetb4_001' -c 'external data'
 # python train.py -m 'efficientnetb4_002' -c '5fold, tta=5'
@@ -56,6 +56,7 @@ python train.py -m 'efficientnetb3_040' -c '384, 1fold, tta=1, Augmix, Norm'
 # python train.py -m 'se_resnext50_32x4d_001' -c 'base model'
 # python train.py -m 'se_resnext50_32x4d_002' -c 'size=512'
 # python train.py -m 'se_resnext50_32x4d_003' -c '384, 1fold, tta=1, Augmix'
+python train.py -m 'se_resnext50_32x4d_003' -c '384, 5fold, tta=1, Augmix, seed=2021'
 
 # python train.py -m 'resnest50_001' -c 'test'
 # python train.py -m 'resnest50_002' -c '384, 1fold, tta=1, Augmix, target_encoding_size'

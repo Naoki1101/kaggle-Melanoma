@@ -18,7 +18,12 @@ def get_features(train, test):
     test['age_site'] = test['age_approx'].astype(str) + '_' + test['anatom_site_general_challenge']
 
     train['size'] = train['height'].astype(str) + '-' + train['width'].astype(str)
+    train_le = {k: k for k, v in dict(train['size'].value_counts()).items() if v >= 50 }
+    train['size'] = train['size'].map(train_le).fillna('Other')
+
     test['size'] = test['age_approx'].astype(str) + '-' + test['width'].astype(str)
+    test_le = {k: k for k, v in dict(test['size'].value_counts()).items() if v >= 50 }
+    test['size'] = test['size'].map(test_le).fillna('Other')
 
     # TargetEncoding
     cfg = edict({
