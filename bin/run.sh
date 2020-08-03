@@ -42,6 +42,7 @@ cd ../src
 # python train.py -m 'efficientnetb4_001' -c 'external data'
 # python train.py -m 'efficientnetb4_002' -c '5fold, tta=5'
 # python train.py -m 'efficientnetb4_003' -c '512, 5fold, tta=10, WeightedFocalLoss, modify head'
+python train.py -m 'efficientnetb4_004' -c '384, 1fold, tta=1, Augmix, target_encoding_size'
 
 # python train.py -m 'resnet18_001' -c 'test'
 # python train.py -m 'resnet18_002' -c 'base model'
@@ -55,7 +56,7 @@ cd ../src
 # python train.py -m 'se_resnext50_32x4d_003' -c '384, 1fold, tta=1, Augmix'
 
 # python train.py -m 'resnest50_001' -c 'test'
-python train.py -m 'resnest50_002' -c '384, 1fold, tta=1, Augmix, target_encoding_size'
+# python train.py -m 'resnest50_002' -c '384, 1fold, tta=1, Augmix, target_encoding_size'
 
 
 # python ensemble.py -m 'ensemble_001' -c '3models'
