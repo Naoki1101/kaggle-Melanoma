@@ -1,0 +1,169 @@
+common:
+    seed: &seed 2021
+    target: target
+    metrics:
+        name: auc
+        params: {}
+    drop:
+    kaggle:
+        submit: True
+
+model:
+    name: se_resnext50_32x4d
+    n_channels: &channel 3
+    n_classes: 1
+    pretrained: True
+    multi_gpu: True
+    avgpool:
+        name: GeM
+        params: {}
+    head:
+        act:
+            name: ReLU
+            params: {}
+        batch_norm: 
+            name: BatchNorm1d
+            params:
+                num_features: 8192
+        drop:
+            name: Dropout
+            params:
+                p: 0.3
+        linear:
+            name: Linear
+            params:
+                in_features: 8192
+                out_features: 256
+        act2:
+            name: ReLU
+            params: {}
+        batch_norm2: 
+            name: BatchNorm1d
+            params:
+                num_features: 256
+        drop2:
+            name: Dropout
+            params:
+                p: 0.3
+        linear2:
+            name: Linear
+            params:
+                in_features: 256
+                out_features: 128
+    metric:
+
+validation:
+    name: StratifiedGroupKFold
+    params:
+        n_splits: 5
+        random_state: *seed
+    split:
+        y: target
+        groups: patient_id
+    weight:
+        - 0.2
+    single: False
+
+data:
+    train:
+        dataset_type: CustomDataset
+        is_train: True
+        img_size:
+            width: &wsize 256
+            height: &hsize 256
+        n_channels: *channel
+        epochs: 12
+        loader:
+            shuffle: True
+            batch_size: 32
+            num_workers: 4
+        transforms:
+            hflip:
+                name: HorizontalFlip
+                params:
+                    p: 0.5
+            vflip:
+                name: VerticalFlip
+                params:
+                    p: 0.5
+            rotate:
+                name: Rotate
+                params:
+                    p: 0.5
+                    limit: 20
+            augmix:
+                name: RandomAugMix
+                params:
+                    p: 0.5
+        mixup: False
+    valid:
+        dataset_type: CustomDataset
+        is_train: True
+        img_size:
+            width: *wsize
+            height: *hsize
+        n_channels: *channel
+        loader:
+            shuffle: False
+            batch_size: 16
+            num_workers: 4
+        transforms:
+            hflip:
+                name: HorizontalFlip
+                params:
+                    p: 0.5
+            vflip:
+                name: VerticalFlip
+                params:
+                    p: 0.5
+            rotate:
+                name: Rotate
+                params:
+                    p: 0.5
+                    limit: 20
+        tta:
+            iter_num: 15
+    test:
+        dataset_type: CustomDataset
+        is_train: False
+        img_size:
+            width: *wsize
+            height: *hsize
+        n_channels: *channel
+        loader:
+            shuffle: False
+            batch_size: 16
+            num_workers: 4
+        transforms:
+            hflip:
+                name: HorizontalFlip
+                params:
+                    p: 0.5
+            vflip:
+                name: VerticalFlip
+                params:
+                    p: 0.5
+            rotate:
+                name: Rotate
+                params:
+                    p: 0.5
+                    limit: 20
+        tta:
+            iter_num: 15
+
+loss: 
+    name: WeightedFocalLoss
+    params:
+        alpha: 0.25
+        gamma: 2
+
+optimizer:
+    name: Adam
+    params:
+        lr: 0.0001
+
+scheduler:
+    name: CosineAnnealingLR
+    params:
+        eta_min: 0.000001
+        T_max: 12
