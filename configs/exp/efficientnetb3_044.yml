@@ -9,7 +9,7 @@ common:
         submit: False
 
 model:
-    name: efficientnet_b6
+    name: efficientnet_b3
     n_channels: &channel 3
     n_classes: 1
     pretrained: True
@@ -24,7 +24,7 @@ model:
         batch_norm: 
             name: BatchNorm1d
             params:
-                num_features: 2304
+                num_features: 1536
         drop:
             name: Dropout
             params:
@@ -32,7 +32,7 @@ model:
         linear:
             name: Linear
             params:
-                in_features: 2304
+                in_features: 1536
                 out_features: 256
         act2:
             name: ReLU
@@ -68,32 +68,43 @@ data:
         dataset_type: CustomDataset
         is_train: True
         img_size:
-            width: &wsize 256
-            height: &hsize 256
+            width: &wsize 384
+            height: &hsize 384
         n_channels: *channel
         epochs: 10
         loader:
             shuffle: True
-            batch_size: 16
+            batch_size: 32
             num_workers: 4
         transforms:
             hflip:
                 name: HorizontalFlip
                 params:
                     p: 0.5
-            vflip:
-                name: VerticalFlip
+            hue:
+                name: HueSaturationValue
                 params:
                     p: 0.5
-            rotate:
-                name: Rotate
+                    hue_shift_limit: 20
+                    sat_shift_limit: 30
+                    val_shift_limit: 20
+            ssr:
+                name: ShiftScaleRotate
                 params:
                     p: 0.5
-                    limit: 20
-            augmix:
-                name: RandomAugMix
-                params:
+                    scale_limit: 0.1
+                    shift_limit: 0.1
+            micro: 
+                name: Microscope
+                params: 
+                    p: 0.25
+            cutout:
+                name: Cutout
+                params: 
                     p: 0.5
+                    num_holes: 1
+                    max_h_size: 64
+                    max_w_size: 64
         mixup: False
     valid:
         dataset_type: CustomDataset
@@ -138,5 +149,5 @@ optimizer:
 scheduler:
     name: CosineAnnealingLR
     params:
-        eta_min: 0.000001
+        eta_min: 0.0000001
         T_max: 10

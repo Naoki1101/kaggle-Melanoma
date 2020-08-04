@@ -43,13 +43,14 @@ cd ../src
 # python train.py -m 'efficientnetb3_041' -c '256, 1fold, tta=1, Augmix'
 # python train.py -m 'efficientnetb3_042' -c '384, 1fold, tta=1, Augmix, lr=4e-5'
 # python train.py -m 'efficientnetb3_043' -c '384, 1fold, tta=1, Augmix, epoch=20'
+python train.py -m 'efficientnetb3_044' -c '384, 1fold, tta=1, modify augmentation, epoch=10'
 
 # python train.py -m 'efficientnetb4_001' -c 'external data'
 # python train.py -m 'efficientnetb4_002' -c '5fold, tta=5'
 # python train.py -m 'efficientnetb4_003' -c '512, 5fold, tta=10, WeightedFocalLoss, modify head'
 # python train.py -m 'efficientnetb4_004' -c '384, 1fold, tta=1, Augmix, target_encoding_size'
 
-python train.py -m 'efficientnetb6_001' -c '384, 1fold, tta=1, Augmix'
+# python train.py -m 'efficientnetb6_001' -c '256, 1fold, tta=1, Augmix'
 
 # python train.py -m 'resnet18_001' -c 'test'
 # python train.py -m 'resnet18_002' -c 'base model'
