@@ -56,7 +56,7 @@ cd ../src
 # python train.py -m 'se_resnext50_32x4d_001' -c 'base model'
 # python train.py -m 'se_resnext50_32x4d_002' -c 'size=512'
 # python train.py -m 'se_resnext50_32x4d_003' -c '384, 1fold, tta=1, Augmix'
-python train.py -m 'se_resnext50_32x4d_004' -c '384, 5fold, tta=1, Augmix, seed=2021'
+# python train.py -m 'se_resnext50_32x4d_004' -c '384, 5fold, tta=1, Augmix, seed=2021'
 
 # python train.py -m 'resnest50_001' -c 'test'
 # python train.py -m 'resnest50_002' -c '384, 1fold, tta=1, Augmix, target_encoding_size'
@@ -70,6 +70,7 @@ python train.py -m 'se_resnext50_32x4d_004' -c '384, 5fold, tta=1, Augmix, seed=
 # python ensemble.py -m 'ensemble_006' -c '5models, rank_average'
 # python ensemble.py -m 'ensemble_007' -c '6models, rank_average'
 # python ensemble.py -m 'ensemble_008' -c '7models, rank_average'
+python ensemble.py -m 'ensemble_009' -c '7models, rank_average'
 
 cd ../
 git add -A
