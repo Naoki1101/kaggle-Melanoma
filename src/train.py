@@ -112,7 +112,9 @@ def main():
             'ISIC_6457527': 1,
             'ISIC_8347588': 0,
             'ISIC_8372206': 1,
-            'ISIC_9353360': 1
+            'ISIC_9353360': 1,
+            'ISIC_3689290': 0,
+            'ISIC_3584949': 0,  
         }
         for image_name, target in duplicates.items():
             idx = test_x[test_x['image_name'] == image_name].index[0]

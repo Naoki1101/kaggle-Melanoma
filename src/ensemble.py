@@ -124,6 +124,21 @@ def main():
         print(f'BEST WEIGHT: {best_weight}')
         print('\n===================================\n\n')
 
+    with t.timer('post process'):
+        duplicates = {
+            'ISIC_5224960': 1,
+            'ISIC_9207777': 1,
+            'ISIC_6457527': 1,
+            'ISIC_8347588': 0,
+            'ISIC_8372206': 1,
+            'ISIC_9353360': 1,
+            'ISIC_3689290': 0,
+            'ISIC_3584949': 0,  
+        }
+        for image_name, target in duplicates.items():
+            idx = test_df[test_df['image_name'] == image_name].index[0]
+            ensemble_preds[idx] = target
+
     with t.timer('make submission'):
         sample_path = f'../data/input/{cfg.data.sample.name}.csv'
         output_path = f'../data/output/{run_name_cv}.csv'
