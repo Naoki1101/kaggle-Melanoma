@@ -69,11 +69,11 @@ class StratifiedGroupKFold:
         if X[self.groups].dtype == 'O':
             le = {id_: i for i, id_ in enumerate(X[self.groups].unique())}
             X[self.groups] = X[self.groups].map(le)
-        X = X.sample(frac=1, self.cfg.params.random_state)
         df = pd.concat([X[[self.y, self.groups]]], axis=1)
         df.columns = ['y', 'groups']
         count_y_each_group = df.pivot_table(index='groups', columns='y', fill_value=0, aggfunc=len)
         order = np.argsort(np.sum(count_y_each_group.values, axis=1))[::-1]
+        order = np.random.permutation(order)
         count_y_each_group_sorted = count_y_each_group.iloc[order]
 
         group_arr = np.zeros(len(count_y_each_group_sorted))
