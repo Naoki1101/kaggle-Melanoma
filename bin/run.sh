@@ -45,7 +45,7 @@ cd ../src
 # python train.py -m 'efficientnetb3_043' -c '384, 1fold, tta=1, Augmix, epoch=20'
 # python train.py -m 'efficientnetb3_044' -c '384, 1fold, tta=1, modify augmentation, epoch=10'
 # python train.py -m 'efficientnetb3_045' -c '256, 5fold, tta=12, Augmix, epoch=12, seed=2020'
-python train.py -m 'efficientnetb3_046' -c '384, 5fold, tta=1, modify augmentation, epoch=10, no metadata'
+# python train.py -m 'efficientnetb3_046' -c '384, 5fold, tta=1, modify augmentation, epoch=12, no metadata'
 
 # python train.py -m 'efficientnetb4_001' -c 'external data'
 # python train.py -m 'efficientnetb4_002' -c '5fold, tta=5'
@@ -81,6 +81,7 @@ python train.py -m 'efficientnetb3_046' -c '384, 5fold, tta=1, modify augmentati
 # python ensemble.py -m 'ensemble_008' -c '7models, rank_average'
 # python ensemble.py -m 'ensemble_009' -c '7models, rank_average'
 # python ensemble.py -m 'ensemble_010' -c '2models, rank_average'
+python ensemble.py -m 'ensemble_011' -c '2models, rank_average'
 
 cd ../
 git add -A
