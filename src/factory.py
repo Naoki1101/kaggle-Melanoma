@@ -1,3 +1,4 @@
+import numpy as np 
 import pandas as pd
 import torch
 import torch.nn as nn
@@ -245,9 +246,9 @@ def get_metrics(cfg):
     return evaluator
 
 
-def extend_data(array, idx):
-    result = np.repeat(np.nan, array)
-    idx_array = np.ones(len(array), dtype=bool)
-    idx_array[idx] = False
-    result[idx_array] = array
-    return result
+def fill_dropped(dropped_array, drop_idx):
+    filled_array = np.zeros(len(dropped_array) + len(drop_idx))
+    idx_array = np.arange(len(filled_array))
+    use_idx = np.delete(idx_array, drop_idx)
+    filled_array[use_idx] = dropped_array
+    return filled_array

@@ -83,7 +83,7 @@ cd ../src
 # python ensemble.py -m 'ensemble_010' -c '2models, rank_average'
 python ensemble.py -m 'ensemble_011' -c '2models, rank_average'
 
-cd ../
-git add -A
-git commit -m '...'
-git push origin master
+# cd ../
+# git add -A
+# git commit -m '...'
+# git push origin master

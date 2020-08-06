@@ -65,7 +65,7 @@ def main():
                 for drop_name in model_cfg.common.drop:
                     drop_idx = dh.load(f'../pickle/{drop_name}.npy')
                     drop_idxs = np.append(drop_idxs, drop_idx)
-                model_oof = factory.extend_data(model_oof, drop_idx)
+                model_oof = factory.fill_dropped(model_oof, drop_idx)
 
             model_preds = dh.load(f'../logs/{name}/raw_preds.npy')
 
