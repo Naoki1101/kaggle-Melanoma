@@ -5,6 +5,7 @@ common:
         name: auc
         params: {}
     drop:
+        - public_notebook_idx
     kaggle:
         submit: True
 
@@ -71,7 +72,7 @@ data:
             width: &wsize 384
             height: &hsize 384
         n_channels: *channel
-        epochs: 12
+        epochs: 10
         loader:
             shuffle: True
             batch_size: 32
@@ -173,4 +174,4 @@ scheduler:
     name: CosineAnnealingLR
     params:
         eta_min: 0.000001
-        T_max: 12
+        T_max: 10

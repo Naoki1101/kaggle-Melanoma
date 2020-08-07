@@ -46,6 +46,7 @@ cd ../src
 # python train.py -m 'efficientnetb3_044' -c '384, 1fold, tta=1, modify augmentation, epoch=10'
 # python train.py -m 'efficientnetb3_045' -c '256, 5fold, tta=12, Augmix, epoch=12, seed=2020'
 # python train.py -m 'efficientnetb3_046' -c '384, 5fold, tta=10, modify augmentation, epoch=12, no metadata, seed=2020'
+python train.py -m 'efficientnetb3_047' -c '384, 5fold, tta=10, epoch=10, no metadata, seed=2021, drop_idx'
 
 # python train.py -m 'efficientnetb4_001' -c 'external data'
 # python train.py -m 'efficientnetb4_002' -c '5fold, tta=5'
