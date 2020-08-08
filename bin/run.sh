@@ -74,7 +74,6 @@ cd ../src
 
 python train.py -m 'resnest50_frelu_001' -c '358 test'
 
-
 # python ensemble.py -m 'ensemble_001' -c '3models'
 # python ensemble.py -m 'ensemble_002' -c '3models, rank_average'
 # python ensemble.py -m 'ensemble_003' -c '4models, rank_average'
