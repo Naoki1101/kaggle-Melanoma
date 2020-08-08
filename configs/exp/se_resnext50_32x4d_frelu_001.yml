@@ -12,7 +12,7 @@ model:
     name: se_resnext50_32x4d_frelu
     n_channels: &channel 3
     n_classes: 1
-    pretrained: True
+    pretrained: False
     multi_gpu: True
     avgpool:
         name: GeM
@@ -28,7 +28,7 @@ model:
         linear:
             name: Linear
             params:
-                in_features: 8192
+                in_features: 73728
                 out_features: 256
         act2:
             name: ReLU
