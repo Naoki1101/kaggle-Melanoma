@@ -44,8 +44,8 @@ model_encoder = {
     'se_resnext101_32x4d': senet.se_resnext101_32x4d,
 
     # senet_frelu
-    'se_resnext50_32x4d_frelu': senet.se_resnext50_32x4d_frelu,
-    'se_resnext101_32x4d_frelu': senet.se_resnext101_32x4d_frelu,
+    'se_resnext50_32x4d_frelu': senet_frelu.se_resnext50_32x4d_frelu,
+    'se_resnext101_32x4d_frelu': senet_frelu.se_resnext101_32x4d_frelu,
 
     # ghostnet
     'ghostnet': ghostnet.ghost_net
