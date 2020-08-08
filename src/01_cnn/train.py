@@ -1,5 +1,6 @@
 import gc
 import os
+import sys
 import argparse
 import datetime
 from datetime import date
@@ -15,6 +16,7 @@ from sklearn.model_selection import train_test_split
 import joblib
 import torch
 
+sys.path.append('../src')
 from utils import Timer, seed_everything, DataHandler, Kaggle, make_submission
 from utils import send_line, Notion
 from trainer import train_model
@@ -87,13 +89,9 @@ def main():
 
     with t.timer('drop several rows'):
         if cfg.common.drop is not None:
-            drop_idx_list = []
-            for drop_name in cfg.common.drop:
-                drop_idx = dh.load(f'../pickle/{drop_name}.npy')
-                drop_idx_list.append(drop_idx)
-            all_drop_idx = np.unique(np.concatenate(drop_idx_list))
-            train_x = train_x.drop(all_drop_idx, axis=0).reset_index(drop=True)
-            fold_df = fold_df.drop(all_drop_idx, axis=0).reset_index(drop=True)
+            drop_idx = factory.get_drop_idx(cfg.common.drop)
+            train_x = train_x.drop(drop_idx, axis=0).reset_index(drop=True)
+            fold_df = fold_df.drop(drop_idx, axis=0).reset_index(drop=True)
 
     with t.timer('train model'):
         result = train_model(run_name, train_x, fold_df, cfg)

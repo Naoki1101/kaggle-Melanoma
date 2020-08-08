@@ -1,13 +1,14 @@
+import sys
 import numpy as np 
 import pandas as pd
 import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
 
-import loss
-import layer
 import metrics
 import validation
+import loss
+import layer
 from models import efficientnet, resnet, resnest, senet, ghostnet
 from dataset.custom_dataset import CustomDataset
 
@@ -134,47 +135,18 @@ class CustomCnn(nn.Module):
     def __init__(self, model):
         super(CustomCnn, self).__init__()
         self.model = model
-        self.linear1 = nn.Linear(6, 16)
-        self.linear2 = nn.Linear(16, 16)
-        self.linear3 = nn.Linear(144, 128)
-        self.linear4 = nn.Linear(128, 1)
-
-        self.bn1 = nn.BatchNorm1d(6)
-        self.bn2 = nn.BatchNorm1d(16)
-        self.bn3 = nn.BatchNorm1d(144)
-        self.bn4 = nn.BatchNorm1d(128)
-
-        self.act1 = nn.ReLU()
-        self.act2 = nn.ReLU()
-        self.act3 = nn.ReLU()
-
-        self.drop1 = nn.Dropout(p=0.3)
-        self.drop2 = nn.Dropout(p=0.3)
-        self.drop3 = nn.Dropout(p=0.3)
+        self.act = nn.ReLU()
+        self.drop = nn.Dropout(p=0.3)
+        self.linear = nn.Linear(256, 1)
 
     def forward(self, x, feats):
         x = self.model(x)
 
-        # feats = self.bn1(feats)
-        # feats = self.linear1(feats)
-        # feats = self.act1(feats)
-        # feats = self.drop1(feats)
+        out = self.act(x)
+        out = self.drop(out)
+        out = self.linear(out)
 
-        # feats = self.bn2(feats)
-        # feats = self.linear2(feats)
-        # feats = self.act2(feats)
-        # feats = self.drop2(feats)
-
-        # x = torch.cat([x, feats], axis=1)
-        # x = self.bn3(x)
-        # x = self.linear3(x)
-        # x = self.act3(x)
-        # x = self.drop3(x)
-
-        # x = self.bn4(x)
-        # x = self.linear4(x)
-
-        return x
+        return out, x
 
 
 def get_model(cfg, is_train=True):
@@ -253,3 +225,12 @@ def fill_dropped(dropped_array, drop_idx):
     use_idx = np.delete(idx_array, drop_idx)
     filled_array[use_idx] = dropped_array
     return filled_array
+
+
+def get_drop_idx(cfg):
+    drop_idx_list = []
+    for drop_name in cfg:
+        drop_idx = np.load(f'../pickle/{drop_name}.npy')
+        drop_idx_list.append(drop_idx)
+    all_drop_idx = np.unique(np.concatenate(drop_idx_list))
+    return all_drop_idx

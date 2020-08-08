@@ -1,7 +1,9 @@
+import sys
 import numpy as np
 import torch
 from torch.autograd import Variable
 
+sys.path.append('../src')
 import factory
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")

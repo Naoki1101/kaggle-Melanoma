@@ -129,6 +129,23 @@ class Bottleneck(nn.Module):
         return out
 
 
+class FReLU(nn.Module):
+    r""" FReLU formulation. The funnel condition has a window size of kxk. (k=3 by default)
+    """
+    def __init__(self, in_channels):
+        super().__init__()
+        self.conv_frelu = nn.Conv2d(in_channels, in_channels, 3, 1, 1, groups=in_channels)
+        self.bn_frelu = nn.BatchNorm2d(in_channels)
+
+    def forward(self, x):
+        x1 = self.conv_frelu(x)
+        x1 = self.bn_frelu(x1)
+        
+        x = torch.max(x, x1)
+
+        return x
+
+
 class Bottleneck_frelu(nn.Module):
     """ResNet Bottleneck
     """
@@ -139,7 +156,7 @@ class Bottleneck_frelu(nn.Module):
                  avd=False, avd_first=False, dilation=1, is_first=False,
                  rectified_conv=False, rectify_avg=False,
                  norm_layer=None, dropblock_prob=0.0, last_gamma=False):
-        super(Bottleneck, self).__init__()
+        super(Bottleneck_frelu, self).__init__()
         group_width = int(planes * (bottleneck_width / 64.)) * cardinality
         self.conv1 = nn.Conv2d(inplanes, group_width, kernel_size=1, bias=False)
         self.bn1 = norm_layer(group_width)

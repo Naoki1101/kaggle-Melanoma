@@ -1,0 +1,12 @@
+features:
+    - age_approx
+    - anatom_site_general_challenge
+    - height
+    - one_hot_sex
+    - target_encoding_age
+    - target_encoding_age_approx
+    - target_encoding_age_site
+    - target_encoding_sex
+    - target_encoding_site
+    - target_encoding_size
+    - width
