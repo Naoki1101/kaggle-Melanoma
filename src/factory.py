@@ -8,7 +8,7 @@ import loss
 import layer
 import metrics
 import validation
-from models import efficientnet, resnet, resnest, senet, ghostnet
+from models import efficientnet, resnet, resnest, senet, senet_frelu, ghostnet
 from dataset.custom_dataset import CustomDataset
 
 model_encoder = {
@@ -42,6 +42,10 @@ model_encoder = {
     # senet
     'se_resnext50_32x4d': senet.se_resnext50_32x4d,
     'se_resnext101_32x4d': senet.se_resnext101_32x4d,
+
+    # senet_frelu
+    'se_resnext50_32x4d_frelu': senet.se_resnext50_32x4d_frelu,
+    'se_resnext101_32x4d_frelu': senet.se_resnext101_32x4d_frelu,
 
     # ghostnet
     'ghostnet': ghostnet.ghost_net
