@@ -12,7 +12,7 @@ model:
     name: resnest50_frelu
     n_channels: &channel 3
     n_classes: 1
-    pretrained: True
+    pretrained: False
     multi_gpu: True
     avgpool:
         name: GeM
