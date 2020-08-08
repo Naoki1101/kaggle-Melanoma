@@ -41,7 +41,7 @@ model:
             name: Linear
             params:
                 in_features: 256
-                out_features: 128
+                out_features: 1
     metric:
 
 validation:
