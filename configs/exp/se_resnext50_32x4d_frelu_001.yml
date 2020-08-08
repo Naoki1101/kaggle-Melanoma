@@ -61,8 +61,8 @@ data:
         dataset_type: CustomDataset
         is_train: True
         img_size:
-            width: &wsize 358
-            height: &hsize 358
+            width: &wsize 384
+            height: &hsize 384
         n_channels: *channel
         epochs: 1
         loader:
