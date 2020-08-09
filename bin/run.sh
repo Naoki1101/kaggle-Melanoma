@@ -53,6 +53,7 @@ cd ../src
 # python 01_cnn/train.py -m 'efficientnetb3_047' -c '384, 5fold, tta=10, epoch=10, no metadata, seed=2021, drop_idx'
 # python 01_cnn/train.py -m 'efficientnetb3_048' -c '384, 5fold, tta=10, epoch=10, no metadata, seed=2020, remove BN'
 # python 01_cnn/train.py -m 'efficientnetb3_049' -c '384, 5fold, tta=1, epoch=10, no metadata, seed=0, remove BN, extract logits'
+# python 01_cnn/train.py -m 'efficientnetb3_050' -c '384, 5fold, tta=1, epoch=10, no metadata, seed=0, remove BN, extract logits'
 
 # python 01_cnn/train.py -m 'efficientnetb4_001' -c 'external data'
 # python 01_cnn/train.py -m 'efficientnetb4_002' -c '5fold, tta=5'
@@ -68,7 +69,7 @@ cd ../src
 # python 01_cnn/train.py -m 'resnet18_005' -c 'modify head'
 # python 01_cnn/train.py -m 'resnet18_006' -c 'add rotate, cutout'
 # python 01_cnn/train.py -m 'resnet18_007' -c 'test'
-python 01_cnn/train.py -m 'resnet18_008' -c 'StratifiedKFold, extract logits'
+# python 01_cnn/train.py -m 'resnet18_008' -c 'StratifiedKFold, extract logits'
 
 # python 01_cnn/train.py -m 'se_resnext50_32x4d_001' -c 'base model'
 # python 01_cnn/train.py -m 'se_resnext50_32x4d_002' -c 'size=512'

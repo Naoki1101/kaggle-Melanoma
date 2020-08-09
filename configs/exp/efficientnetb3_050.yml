@@ -1,15 +1,15 @@
 common:
-    seed: &seed 2020
+    seed: &seed 0
     target: target
     metrics:
         name: auc
         params: {}
     drop:
     kaggle:
-        submit: False
+        submit: True
 
 model:
-    name: resnet18
+    name: efficientnet_b3
     n_channels: &channel 3
     n_classes: 1
     pretrained: True
@@ -28,7 +28,7 @@ model:
         linear:
             name: Linear
             params:
-                in_features: 512
+                in_features: 1536
                 out_features: 256
     metric:
 
@@ -42,7 +42,7 @@ validation:
             groups: patient_id
         weight:
             - 0.2
-        single: True
+        single: False
     val2:
         name: StratifiedKFold
         params:
@@ -53,7 +53,7 @@ validation:
             groups:
         weight:
             - 0.2
-        single: True
+        single: False
 
 data:
     train:
@@ -63,10 +63,10 @@ data:
             width: &wsize 384
             height: &hsize 384
         n_channels: *channel
-        epochs: 1
+        epochs: 10
         loader:
             shuffle: True
-            batch_size: 128
+            batch_size: 32
             num_workers: 4
         transforms:
             hflip:
@@ -82,13 +82,10 @@ data:
                 params:
                     p: 0.5
                     limit: 20
-            cutout:
-                name: Cutout
+            augmix:
+                name: RandomAugMix
                 params:
                     p: 0.5
-                    num_holes: 30
-                    max_h_size: 15
-                    max_w_size: 15
         mixup: False
     valid:
         dataset_type: CustomDataset
@@ -99,7 +96,7 @@ data:
         n_channels: *channel
         loader:
             shuffle: False
-            batch_size: 32
+            batch_size: 16
             num_workers: 4
         transforms:
         tta:
@@ -113,7 +110,7 @@ data:
         n_channels: *channel
         loader:
             shuffle: False
-            batch_size: 32
+            batch_size: 16
             num_workers: 4
         transforms:
         tta:
