@@ -54,6 +54,7 @@ cd ../src
 # python 01_cnn/train.py -m 'efficientnetb3_048' -c '384, 5fold, tta=10, epoch=10, no metadata, seed=2020, remove BN'
 # python 01_cnn/train.py -m 'efficientnetb3_049' -c '384, 5fold, tta=1, epoch=10, no metadata, seed=0, remove BN, extract logits'
 # python 01_cnn/train.py -m 'efficientnetb3_050' -c '384, 5fold, tta=1, epoch=10, no metadata, seed=0, remove BN, extract logits'
+python 01_cnn/train.py -m 'efficientnetb3_050' -c '384, 5fold, tta=1, epoch=10, no metadata, seed=0, remove BN, remove dropout, extract logits'
 
 # python 01_cnn/train.py -m 'efficientnetb4_001' -c 'external data'
 # python 01_cnn/train.py -m 'efficientnetb4_002' -c '5fold, tta=5'
