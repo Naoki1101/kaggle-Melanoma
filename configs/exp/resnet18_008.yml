@@ -33,26 +33,27 @@ model:
     metric:
 
 validation:
-    name: StratifiedGroupKFold
-    params:
-        n_splits: &fold_num
-    split:
-        y: target
-        groups: patient_id
-    weight:
-        - 0.2
-    single: True
-validation:
-    name: StratifiedKFold
-    params:
-        n_splits: *fold_num
-        random_state: *seed
-    split:
-        y: target
-        groups:
-    weight:
-        - 0.2
-    single: True
+    val1:
+        name: StratifiedGroupKFold
+        params:
+            n_splits: &fold_num
+        split:
+            y: target
+            groups: patient_id
+        weight:
+            - 0.2
+        single: True
+    val2:
+        name: StratifiedKFold
+        params:
+            n_splits: *fold_num
+            random_state: *seed
+        split:
+            y: target
+            groups:
+        weight:
+            - 0.2
+        single: True
 
 data:
     train:

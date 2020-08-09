@@ -73,8 +73,8 @@ def main():
         test_x = dh.load('../data/input/test.csv')
 
     with t.timer('make folds'):
-        fold_org_df = factory.get_fold(cfg.validation1, train_org_x, train_org_x[[cfg.common.target]])
-        fold2019_df = factory.get_fold(cfg.validation2, train_2019_x, train_2019_x[[cfg.common.target]])
+        fold_org_df = factory.get_fold(cfg.validation.val1, train_org_x, train_org_x[[cfg.common.target]])
+        fold2019_df = factory.get_fold(cfg.validation.val2, train_2019_x, train_2019_x[[cfg.common.target]])
         fold_df = pd.concat([fold_org_df, fold2019_df], axis=0, sort=False, ignore_index=True)
 
     with t.timer('load features'):
