@@ -48,7 +48,7 @@ def train_epoch(model, train_loader, criterion, optimizer, mb, cfg):
         if cfg.data.train.mixup and r < 0.5:
             images, feats, labels = mixup(images, feats, labels, 1.0)
 
-        preds = model(images.float(), feats.float())
+        preds, _ = model(images.float(), feats.float())
 
         loss = criterion(preds.view(labels.shape), labels.float())
 
@@ -66,6 +66,10 @@ def val_epoch(model, valid_loader, criterion, cfg):
                             cfg.model.n_classes * cfg.data.valid.tta.iter_num))
     valid_feats = np.zeros((len(valid_loader.dataset), 
                             256 * cfg.data.valid.tta.iter_num))
+
+    valid_preds_tta = np.zeros((len(valid_preds), cfg.model.n_classes))
+    valid_feats_tta = np.zeros((len(valid_preds), 256))
+
     avg_val_loss = 0.
     valid_batch_size = valid_loader.batch_size
     
@@ -76,17 +80,21 @@ def val_epoch(model, valid_loader, criterion, cfg):
                 feats = feats.to(device)
                 labels = labels.to(device)
 
-                preds, feats = model(images.float(), feats.float())
+                preds, logits = model(images.float(), feats.float())
 
                 loss = criterion(preds.view(labels.shape), labels.float())
                 valid_preds[i * valid_batch_size: (i + 1) * valid_batch_size, t * cfg.model.n_classes: (t + 1) * cfg.model.n_classes] = preds.cpu().detach().numpy()
-                valid_feats[i * valid_batch_size: (i + 1) * valid_batch_size, t * 256: (t + 1) * 256] = feats.cpu().detach().numpy()
+                valid_feats[i * valid_batch_size: (i + 1) * valid_batch_size, t * 256: (t + 1) * 256] = logits.cpu().detach().numpy()
                 avg_val_loss += loss.item() / (len(valid_loader) * cfg.data.valid.tta.iter_num)
     
-    valid_preds_tta = np.mean(valid_preds, axis=1)
-    valid_preds_tta = 1 / (1 + np.exp(-valid_preds_tta))
+    for i in range(cfg.model.n_classes):
+        preds_col_idx = [i + cfg.model.n_classes * j for j in range(cfg.data.valid.tta.iter_num)]
+        valid_preds_tta[:, i] = np.mean(valid_preds[:, preds_col_idx], axis=1).reshape(-1)
 
-    valid_feats_tta = np.mean(valid_feats, axis=1)
+        feats_col_idx = [i + 256 * j for j in range(cfg.data.valid.tta.iter_num)]
+        valid_feats_tta[:, i] = np.mean(valid_feats[:, feats_col_idx], axis=1).reshape(-1)
+
+    valid_preds_tta = 1 / (1 + np.exp(-valid_preds_tta))
 
     return valid_preds_tta, valid_feats_tta, avg_val_loss
 
@@ -152,7 +160,7 @@ def train_model(run_name, df, fold_df, cfg):
                 else:
                     best_model = model.state_dict()
 
-        oof[val_x.index] = best_valid_preds
+        oof[val_x.index] = best_valid_preds.reshape(-1)
         feats[val_x.index] = best_valid_feats
         cv += best_val_score * fold_df[col].max()
 

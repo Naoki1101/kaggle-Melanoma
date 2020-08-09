@@ -1,6 +1,9 @@
 common:
     seed: &seed 2020
     target: target
+    metrics:
+        name: auc
+        params: {}
     drop:
     kaggle:
         submit: False
@@ -18,10 +21,6 @@ model:
         act:
             name: ReLU
             params: {}
-        batch_norm: 
-            name: BatchNorm1d
-            params:
-                num_features: 512
         drop:
             name: Dropout
             params:
@@ -30,30 +29,29 @@ model:
             name: Linear
             params:
                 in_features: 512
-                out_features: 128
+                out_features: 256
     metric:
 
 validation:
-    name: SingleFold
+    name: StratifiedGroupKFold
     params:
         n_splits: 5
-        shuffle: True
-        random_state: *seed
     split:
         y: target
-        groups:
+        groups: patient_id
     weight:
-        - 1.0
+        - 0.2
+    single: True
 
 data:
     train:
         dataset_type: CustomDataset
         is_train: True
         img_size:
-            width: &wsize 256
-            height: &hsize 256
+            width: &wsize 384
+            height: &hsize 384
         n_channels: *channel
-        epochs: 10
+        epochs: 1
         loader:
             shuffle: True
             batch_size: 64
@@ -79,6 +77,7 @@ data:
                     num_holes: 30
                     max_h_size: 15
                     max_w_size: 15
+        mixup: False
     valid:
         dataset_type: CustomDataset
         is_train: True
@@ -109,8 +108,10 @@ data:
             iter_num: 1
 
 loss: 
-    name: BCEWithLogitsLoss
-    params: {}
+    name: WeightedFocalLoss
+    params:
+        alpha: 0.25
+        gamma: 2
 
 optimizer:
     name: Adam
@@ -118,7 +119,7 @@ optimizer:
         lr: 0.0001
 
 scheduler:
-    name: ReduceLROnPlateau
+    name: CosineAnnealingLR
     params:
-        factor: 0.5
-        T_max: 5
+        eta_min: 0.000001
+        T_max: 10

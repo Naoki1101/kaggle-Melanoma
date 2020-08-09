@@ -1,15 +1,15 @@
 common:
-    seed: &seed 0
+    seed: &seed 2020
     target: target
     metrics:
         name: auc
         params: {}
     drop:
     kaggle:
-        submit: True
+        submit: False
 
 model:
-    name: efficientnet_b3
+    name: resnet18
     n_channels: &channel 3
     n_classes: 1
     pretrained: True
@@ -28,17 +28,18 @@ model:
         linear:
             name: Linear
             params:
-                in_features: 1536
+                in_features: 512
                 out_features: 256
     metric:
 
 validation:
-    name: StratifiedGroupKFold
+    name: StratifiedKFold
     params:
         n_splits: 5
+        random_state: *seed
     split:
         y: target
-        groups: patient_id
+        groups:
     weight:
         - 0.2
     single: False
@@ -54,7 +55,7 @@ data:
         epochs: 10
         loader:
             shuffle: True
-            batch_size: 32
+            batch_size: 128
             num_workers: 4
         transforms:
             hflip:
@@ -70,10 +71,13 @@ data:
                 params:
                     p: 0.5
                     limit: 20
-            augmix:
-                name: RandomAugMix
+            cutout:
+                name: Cutout
                 params:
                     p: 0.5
+                    num_holes: 30
+                    max_h_size: 15
+                    max_w_size: 15
         mixup: False
     valid:
         dataset_type: CustomDataset
@@ -84,7 +88,7 @@ data:
         n_channels: *channel
         loader:
             shuffle: False
-            batch_size: 16
+            batch_size: 32
             num_workers: 4
         transforms:
         tta:
@@ -98,7 +102,7 @@ data:
         n_channels: *channel
         loader:
             shuffle: False
-            batch_size: 16
+            batch_size: 32
             num_workers: 4
         transforms:
         tta:
