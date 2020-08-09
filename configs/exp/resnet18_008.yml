@@ -33,16 +33,26 @@ model:
     metric:
 
 validation:
+    name: StratifiedGroupKFold
+    params:
+        n_splits: &fold_num
+    split:
+        y: target
+        groups: patient_id
+    weight:
+        - 0.2
+    single: True
+validation:
     name: StratifiedKFold
     params:
-        n_splits: 5
+        n_splits: *fold_num
         random_state: *seed
     split:
         y: target
         groups:
     weight:
         - 0.2
-    single: False
+    single: True
 
 data:
     train:
@@ -52,7 +62,7 @@ data:
             width: &wsize 384
             height: &hsize 384
         n_channels: *channel
-        epochs: 10
+        epochs: 1
         loader:
             shuffle: True
             batch_size: 128

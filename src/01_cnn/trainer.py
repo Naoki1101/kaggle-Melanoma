@@ -109,6 +109,9 @@ def train_model(run_name, df, fold_df, cfg):
         logging.debug(f'\n========================== FOLD {fold_} ... ==========================\n')
 
         trn_x, val_x = df[fold_df[col] == 0], df[fold_df[col] > 0]
+
+        val_idx = val_x.index.values
+        val_org_idx = val_x[np.where(val_idx <= 33126)]
         val_y = val_x[cfg.common.target]
 
         train_loader = factory.get_dataloader(trn_x, cfg.data.train)
@@ -135,7 +138,7 @@ def train_model(run_name, df, fold_df, cfg):
 
             valid_preds, valid_feats, avg_val_loss = val_epoch(model, valid_loader, criterion, cfg)
 
-            val_score = factory.get_metrics(cfg.common.metrics.name)(val_y, valid_preds)
+            val_score = factory.get_metrics(cfg.common.metrics.name)(val_y[val_org_idx], valid_preds[val_org_idx])
 
             train_loss_list.append(avg_loss)
             val_loss_list.append(avg_val_loss)

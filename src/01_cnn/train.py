@@ -72,17 +72,10 @@ def main():
         train_2019_x = dh.load('../data/input/train_2019.csv')
         test_x = dh.load('../data/input/test.csv')
 
-    # with t.timer('make folds'):
-    #     fold_df = factory.get_fold(cfg.validation, train_org_x, train_org_x[[cfg.common.target]])
-    #     fold_df = pd.concat([fold_df,
-    #                          pd.DataFrame(np.zeros((len(train_2019_x), len(fold_df.columns))), columns=fold_df.columns)]
-    #                          , axis=0, sort=False, ignore_index=True)
-    #     if cfg.validation.single:
-    #         fold_df = fold_df[['fold_0']]
-    #         fold_df /= fold_df['fold_0'].max()
-
     with t.timer('make folds'):
-        fold_df = factory.get_fold(cfg.validation, train_x, train_x[[cfg.common.target]])
+        fold_org_df = factory.get_fold(cfg.validation1, train_org_x, train_org_x[[cfg.common.target]])
+        fold2019_df = factory.get_fold(cfg.validation2, train_2019_x, train_2019_x[[cfg.common.target]])
+        fold_df = pd.concat([fold_org_df, fold2019_df], axis=0, sort=False, ignore_index=True)
 
     with t.timer('load features'):
         features = dh.load('../configs/feature/all.yml')['features']

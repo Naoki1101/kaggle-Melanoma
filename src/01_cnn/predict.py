@@ -26,7 +26,7 @@ def predict_test(run_name, df, fold_df, cfg):
         all_feats[:, i] = np.mean(all_feats[:, preds_col_idx], axis=1).reshape(-1)
 
     np.save(f'../logs/{run_name}/raw_preds.npy', all_preds)
-    np.save(f'../logs_{run_name}/test_feats.npy', all_feats)
+    np.save(f'../logs/{run_name}/test_feats.npy', all_feats)
 
     return all_preds
 
