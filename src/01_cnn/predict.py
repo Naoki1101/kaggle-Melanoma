@@ -13,6 +13,9 @@ def predict_test(run_name, df, fold_df, cfg):
     all_preds = np.zeros((len(df), cfg.model.n_classes * len(fold_df.columns)))
     all_feats = np.zeros((len(df), 256 * len(fold_df.columns)))
 
+    result_preds = np.zeros((len(df), cfg.model.n_classes))
+    result_feats = np.zeros((len(df), 256))
+
     for fold_, col in enumerate(fold_df.columns):
         preds, feats = predict_fold(run_name, df, cfg, fold_)
         all_preds[:, fold_ * cfg.model.n_classes: (fold_ + 1) * cfg.model.n_classes] = preds
@@ -20,16 +23,16 @@ def predict_test(run_name, df, fold_df, cfg):
 
     for i in range(cfg.model.n_classes):
         preds_col_idx = [i + cfg.model.n_classes * j for j in range(len(fold_df.columns))]
-        all_preds[:, i] = np.mean(all_preds[:, preds_col_idx], axis=1)
+        result_preds[:, i] = np.mean(all_preds[:, preds_col_idx], axis=1)
 
     for i in range(256):
         feats_col_idx = [i + 256 * j for j in range(len(fold_df.columns))]
-        all_feats[:, i] = np.mean(all_feats[:, preds_col_idx], axis=1).reshape(-1)
+        result_feats[:, i] = np.mean(all_feats[:, preds_col_idx], axis=1).reshape(-1)
 
-    np.save(f'../logs/{run_name}/raw_preds.npy', all_preds)
-    np.save(f'../logs/{run_name}/test_feats.npy', all_feats)
+    np.save(f'../logs/{run_name}/raw_preds.npy', result_preds)
+    np.save(f'../logs/{run_name}/test_feats.npy', result_feats)
 
-    return all_preds
+    return result_preds
 
 
 def predict_fold(run_name, df, cfg, fold_num):
