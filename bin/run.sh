@@ -96,6 +96,7 @@ cd ../src
 # python 02_gbdt/train.py -m 'lgbm_003' -c 'lgbmtuner'
 # python 02_gbdt/train.py -m 'lgbm_004' -c 'parameter tuning'
 # python 02_gbdt/train.py -m 'lgbm_005' -c 'custom_002'
+python 02_gbdt/train.py -m 'lgbm_006' -c 'add oof'
 
 
 # =========================================================
@@ -117,7 +118,7 @@ cd ../src
 # python 03_ensemble/ensemble.py -m 'ensemble_014' -c '5models, rank_average'
 # python 03_ensemble/ensemble.py -m 'ensemble_015' -c '4models, rank_average'
 # python 03_ensemble/ensemble.py -m 'ensemble_016' -c '5models, rank_average'
-python 03_ensemble/ensemble.py -m 'ensemble_017' -c '5models, rank_average'
+# python 03_ensemble/ensemble.py -m 'ensemble_017' -c '5models, rank_average'
 
 cd ../
 git add -A
