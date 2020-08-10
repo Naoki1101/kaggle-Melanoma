@@ -69,9 +69,10 @@ cd ../src
 # python 01_cnn/train.py -m 'resnet18_004' -c 'modify head'
 # python 01_cnn/train.py -m 'resnet18_005' -c 'modify head'
 # python 01_cnn/train.py -m 'resnet18_006' -c 'add rotate, cutout'
-python 01_cnn/train.py -m 'resnet18_007' -c 'test'
+# python 01_cnn/train.py -m 'resnet18_007' -c 'test'
 # python 01_cnn/train.py -m 'resnet18_008' -c 'StratifiedKFold, extract logits'
 # python 01_cnn/train.py -m 'resnet18_009' -c 'extract logits'
+python 01_cnn/train.py -m 'resnet18_010' -c 'test'
 
 # python 01_cnn/train.py -m 'se_resnext50_32x4d_001' -c 'base model'
 # python 01_cnn/train.py -m 'se_resnext50_32x4d_002' -c 'size=512'

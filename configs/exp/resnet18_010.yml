@@ -54,7 +54,7 @@ validation:
             groups: patient_id
         weight:
             - 0.2
-        single: False
+        single: True
     val2:
         name: StratifiedKFold
         params:
@@ -65,7 +65,7 @@ validation:
             groups:
         weight:
             - 0.2
-        single: False
+        single: True
 
 data:
     train:
@@ -94,13 +94,6 @@ data:
                 params:
                     p: 0.5
                     limit: 20
-            cutout:
-                name: Cutout
-                params:
-                    p: 0.5
-                    num_holes: 30
-                    max_h_size: 15
-                    max_w_size: 15
         mixup: False
     valid:
         dataset_type: CustomDataset
