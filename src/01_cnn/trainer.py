@@ -81,6 +81,7 @@ def val_epoch(model, valid_loader, criterion, cfg):
                 labels = labels.to(device)
 
                 preds, logits = model(images.float(), feats.float())
+                print(logits.cpu().detach().numpy())
 
                 loss = criterion(preds.view(labels.shape), labels.float())
                 valid_preds[i * valid_batch_size: (i + 1) * valid_batch_size, t * cfg.model.n_classes: (t + 1) * cfg.model.n_classes] = preds.cpu().detach().numpy()
