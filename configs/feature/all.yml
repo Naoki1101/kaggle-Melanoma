@@ -34,4 +34,6 @@ features:
 - target_encoding_sex
 - target_encoding_site
 - target_encoding_size
+- tsne_0
+- tsne_1
 - width

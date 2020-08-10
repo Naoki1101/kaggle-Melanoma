@@ -45,7 +45,7 @@ def predict_fold(run_name, df, cfg, fold_num):
             for i, (images) in enumerate(test_loader):
                 images = images.to(device)
 
-                preds, logits = model(images.float())
+                preds = model(images.float())
                 test_preds[i * test_batch_size: (i + 1) * test_batch_size, t * cfg.model.n_classes: (t + 1) * cfg.model.n_classes] = preds.cpu().detach().numpy()
     
     for i in range(cfg.model.n_classes):

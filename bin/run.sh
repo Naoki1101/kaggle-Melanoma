@@ -72,7 +72,7 @@ cd ../src
 # python 01_cnn/train.py -m 'resnet18_007' -c 'test'
 # python 01_cnn/train.py -m 'resnet18_008' -c 'StratifiedKFold, extract logits'
 # python 01_cnn/train.py -m 'resnet18_009' -c 'extract logits'
-python 01_cnn/train.py -m 'resnet18_010' -c 'test'
+# python 01_cnn/train.py -m 'resnet18_010' -c 'test'
 
 # python 01_cnn/train.py -m 'se_resnext50_32x4d_001' -c 'base model'
 # python 01_cnn/train.py -m 'se_resnext50_32x4d_002' -c 'size=512'
@@ -85,6 +85,7 @@ python 01_cnn/train.py -m 'resnet18_010' -c 'test'
 # python 01_cnn/train.py -m 'resnest50_003' -c '384, test'
 
 # python 01_cnn/train.py -m 'resnest50_frelu_001' -c '384, test'
+# python 01_cnn/train.py -m 'resnest50_frelu_002' -c '384, 5fold, tta=10, Augmix, seed=2019, remove BN'
 
 
 # =========================================================
@@ -94,6 +95,7 @@ python 01_cnn/train.py -m 'resnet18_010' -c 'test'
 # python 02_gbdt/train.py -m 'lgbm_002' -c 'StratifiedGroupKFold'
 # python 02_gbdt/train.py -m 'lgbm_003' -c 'lgbmtuner'
 # python 02_gbdt/train.py -m 'lgbm_004' -c 'parameter tuning'
+# python 02_gbdt/train.py -m 'lgbm_005' -c 'custom_002'
 
 
 # =========================================================
@@ -115,6 +117,7 @@ python 01_cnn/train.py -m 'resnet18_010' -c 'test'
 # python 03_ensemble/ensemble.py -m 'ensemble_014' -c '5models, rank_average'
 # python 03_ensemble/ensemble.py -m 'ensemble_015' -c '4models, rank_average'
 # python 03_ensemble/ensemble.py -m 'ensemble_016' -c '5models, rank_average'
+python 03_ensemble/ensemble.py -m 'ensemble_017' -c '5models, rank_average'
 
 cd ../
 git add -A
