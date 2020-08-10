@@ -136,15 +136,8 @@ class CustomModel(nn.Module):
         if cfg.model.avgpool:
             self.base_model = replace_pool(self.base_model, cfg)
         self.model = replace_fc(self.base_model, cfg)
-        self.act = nn.ReLU()
-        self.drop = nn.Dropout(p=0.3)
-        self.linear = nn.Linear(256, 1)
 
-    def forward(self, x, feats):
+    def forward(self, x):
         x = self.model(x)
 
-        out = self.act(x)
-        out = self.drop(out)
-        out = self.linear(out)
-
-        return out, x
+        return x

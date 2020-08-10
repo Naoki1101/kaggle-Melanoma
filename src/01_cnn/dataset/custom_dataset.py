@@ -55,6 +55,6 @@ class CustomDataset(Dataset):
 
         if self.is_train:
             label = self.labels[idx]
-            return image, feats, label
+            return image, label
         else:
-            return image, feats
+            return image

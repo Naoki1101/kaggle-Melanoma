@@ -21,34 +21,31 @@ import factory
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 
-def mixup(images, feats, targets, alpha):
+def mixup(images, targets, alpha):
     indices = torch.randperm(images.size(0))
     shuffled_images = images[indices]
-    shuffled_feats = feats[indices]
     shuffled_targets = targets[indices]
 
     lam = np.random.beta(alpha, alpha)
     images = images * lam + shuffled_images * (1 - lam)
-    feats = feats * lam + shuffled_feats * (1 - lam)
     targets = targets * lam + shuffled_targets * (1 - lam)
 
-    return images, feats, targets
+    return images, targets
 
 
 def train_epoch(model, train_loader, criterion, optimizer, mb, cfg):
     model.train()
     avg_loss = 0.
 
-    for images, feats, labels in progress_bar(train_loader, parent=mb):
+    for images, labels in progress_bar(train_loader, parent=mb):
         images = images.to(device)
-        feats = feats.to(device)
         labels = labels.to(device)
 
         r = np.random.rand()
         if cfg.data.train.mixup and r < 0.5:
-            images, feats, labels = mixup(images, feats, labels, 1.0)
+            images, labels = mixup(images, labels, 1.0)
 
-        preds, _ = model(images.float(), feats.float())
+        preds = model(images.float())
 
         loss = criterion(preds.view(labels.shape), labels.float())
 
@@ -64,45 +61,35 @@ def val_epoch(model, valid_loader, criterion, cfg):
     model.eval()
     valid_preds = np.zeros((len(valid_loader.dataset), 
                             cfg.model.n_classes * cfg.data.valid.tta.iter_num))
-    valid_feats = np.zeros((len(valid_loader.dataset), 
-                            256 * cfg.data.valid.tta.iter_num))
 
     valid_preds_tta = np.zeros((len(valid_preds), cfg.model.n_classes))
-    valid_feats_tta = np.zeros((len(valid_preds), 256))
 
     avg_val_loss = 0.
     valid_batch_size = valid_loader.batch_size
     
     for t in range(cfg.data.valid.tta.iter_num):
         with torch.no_grad():
-            for i, (images, feats, labels) in enumerate(valid_loader):
+            for i, (images, labels) in enumerate(valid_loader):
                 images = images.to(device)
-                feats = feats.to(device)
                 labels = labels.to(device)
 
-                preds, logits = model(images.float(), feats.float())
+                preds, logits = model(images.float())
 
                 loss = criterion(preds.view(labels.shape), labels.float())
                 valid_preds[i * valid_batch_size: (i + 1) * valid_batch_size, t * cfg.model.n_classes: (t + 1) * cfg.model.n_classes] = preds.cpu().detach().numpy()
-                valid_feats[i * valid_batch_size: (i + 1) * valid_batch_size, t * 256: (t + 1) * 256] = logits.cpu().detach().numpy()
                 avg_val_loss += loss.item() / (len(valid_loader) * cfg.data.valid.tta.iter_num)
     
     for i in range(cfg.model.n_classes):
         preds_col_idx = [i + cfg.model.n_classes * j for j in range(cfg.data.valid.tta.iter_num)]
         valid_preds_tta[:, i] = np.mean(valid_preds[:, preds_col_idx], axis=1).reshape(-1)
 
-    for i in range(256):
-        feats_col_idx = [i + 256 * j for j in range(cfg.data.valid.tta.iter_num)]
-        valid_feats_tta[:, i] = np.mean(valid_feats[:, feats_col_idx], axis=1).reshape(-1)
-
     valid_preds_tta = 1 / (1 + np.exp(-valid_preds_tta))
 
-    return valid_preds_tta, valid_feats_tta, avg_val_loss
+    return valid_preds_tta, avg_val_loss
 
 
 def train_model(run_name, df, fold_df, cfg):
     oof = np.zeros(len(df))
-    feats = np.zeros((len(df), 256))
     cv = 0
 
     for fold_, col in enumerate(fold_df.columns):
@@ -136,7 +123,7 @@ def train_model(run_name, df, fold_df, cfg):
 
             model, avg_loss = train_epoch(model, train_loader, criterion, optimizer, mb, cfg)
 
-            valid_preds, valid_feats, avg_val_loss = val_epoch(model, valid_loader, criterion, cfg)
+            valid_preds, avg_val_loss = val_epoch(model, valid_loader, criterion, cfg)
 
             val_score = factory.get_metrics(cfg.common.metrics.name)(val_y, valid_preds[val_org_idx])
 
@@ -157,14 +144,12 @@ def train_model(run_name, df, fold_df, cfg):
                 best_epoch = epoch + 1
                 best_val_score = val_score
                 best_valid_preds = valid_preds
-                best_valid_feats = valid_feats
                 if cfg.model.multi_gpu:
                     best_model = model.module.state_dict()
                 else:
                     best_model = model.state_dict()
 
         oof[val_x.index] = best_valid_preds.reshape(-1)
-        feats[val_x.index] = best_valid_feats
         cv += best_val_score * fold_df[col].max()
 
         torch.save(best_model, f'../logs/{run_name}/weight_best_{fold_}.pt')
@@ -183,7 +168,6 @@ def train_model(run_name, df, fold_df, cfg):
     }
 
     np.save(f'../logs/{run_name}/oof.npy', oof)
-    np.save(f'../logs/{run_name}/feats.npy', feats)
     
     return result
 
