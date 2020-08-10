@@ -76,6 +76,9 @@ def main():
         fold_org_df = factory.get_fold(cfg.validation.val1, train_org_x, train_org_x[[cfg.common.target]])
         fold2019_df = factory.get_fold(cfg.validation.val2, train_2019_x, train_2019_x[[cfg.common.target]])
         fold_df = pd.concat([fold_org_df, fold2019_df], axis=0, sort=False, ignore_index=True)
+        if cfg.validation.val1.single:
+            fold_df = fold_df[['fold_0']]
+            fold_df /= fold_df['fold_0'].max()
 
     with t.timer('load features'):
         features = dh.load('../configs/feature/all.yml')['features']

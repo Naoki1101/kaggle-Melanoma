@@ -22,6 +22,7 @@ def predict_test(run_name, df, fold_df, cfg):
         preds_col_idx = [i + cfg.model.n_classes * j for j in range(len(fold_df.columns))]
         all_preds[:, i] = np.mean(all_preds[:, preds_col_idx], axis=1)
 
+    for i in range(256):
         feats_col_idx = [i + 256 * j for j in range(len(fold_df.columns))]
         all_feats[:, i] = np.mean(all_feats[:, preds_col_idx], axis=1).reshape(-1)
 

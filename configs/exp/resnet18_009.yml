@@ -42,7 +42,7 @@ validation:
             groups: patient_id
         weight:
             - 0.2
-        single: True
+        single: False
     val2:
         name: StratifiedKFold
         params:
@@ -53,7 +53,7 @@ validation:
             groups:
         weight:
             - 0.2
-        single: True
+        single: False
 
 data:
     train:
@@ -63,10 +63,10 @@ data:
             width: &wsize 384
             height: &hsize 384
         n_channels: *channel
-        epochs: 5
+        epochs: 3
         loader:
             shuffle: True
-            batch_size: 64
+            batch_size: 128
             num_workers: 4
         transforms:
             hflip:
@@ -113,7 +113,7 @@ data:
         n_channels: *channel
         loader:
             shuffle: False
-            batch_size: 16
+            batch_size: 32
             num_workers: 4
         transforms:
         tta:
