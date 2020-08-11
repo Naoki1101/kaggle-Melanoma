@@ -94,12 +94,6 @@ data:
                     min_holes: 3
                     max_height: 20
                     max_width: 20
-            hair:
-                name: HairAugmentation
-                params:
-                    p: 0.5
-                    max_hairs: 10
-
         mixup: False
     valid:
         dataset_type: CustomDataset
@@ -130,11 +124,6 @@ data:
                 name: RandomAugMix
                 params:
                     p: 0.5
-            hair:
-                name: HairAugmentation
-                params:
-                    p: 0.5
-                    max_hairs: 10
         tta:
             iter_num: 10
     test:
@@ -166,11 +155,6 @@ data:
                 name: RandomAugMix
                 params:
                     p: 0.5
-            hair:
-                name: HairAugmentation
-                params:
-                    p: 0.5
-                    max_hairs: 10
         tta:
             iter_num: 10
 

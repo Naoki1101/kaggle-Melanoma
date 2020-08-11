@@ -83,7 +83,7 @@ cd ../src
 # python 01_cnn/train.py -m 'resnest50_001' -c 'test'
 # python 01_cnn/train.py -m 'resnest50_002' -c '384, 1fold, tta=1, Augmix, target_encoding_size'
 # python 01_cnn/train.py -m 'resnest50_003' -c '384, test'
-python 01_cnn/train.py -m 'resnest50_004' -c '384, 5fold, tta=10, Augmix, hairAug, Coarse, modify head, remove BN'
+python 01_cnn/train.py -m 'resnest50_004' -c '384, 5fold, tta=10, Augmix, Coarse, modify head, remove BN'
 
 # python 01_cnn/train.py -m 'resnest50_frelu_001' -c '384, test'
 # python 01_cnn/train.py -m 'resnest50_frelu_002' -c '384, 5fold, tta=10, Augmix, seed=2019, remove BN'
