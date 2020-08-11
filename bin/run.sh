@@ -55,6 +55,7 @@ cd ../src
 # python 01_cnn/train.py -m 'efficientnetb3_049' -c '384, 5fold, tta=1, epoch=10, no metadata, seed=0, remove BN, extract logits'
 # python 01_cnn/train.py -m 'efficientnetb3_050' -c '384, 5fold, tta=1, epoch=10, no metadata, seed=0, remove BN, extract logits'
 # python 01_cnn/train.py -m 'efficientnetb3_051' -c '384, 5fold, tta=1, epoch=10, no metadata, seed=0, remove BN, remove dropout, extract logits'
+python 01_cnn/train.py -m 'efficientnetb3_052' -c '384, 5fold, tta=1, epoch=10, no metadata, seed=0, remove BN, Coarse'
 
 # python 01_cnn/train.py -m 'efficientnetb4_001' -c 'external data'
 # python 01_cnn/train.py -m 'efficientnetb4_002' -c '5fold, tta=5'
@@ -83,7 +84,7 @@ cd ../src
 # python 01_cnn/train.py -m 'resnest50_001' -c 'test'
 # python 01_cnn/train.py -m 'resnest50_002' -c '384, 1fold, tta=1, Augmix, target_encoding_size'
 # python 01_cnn/train.py -m 'resnest50_003' -c '384, test'
-python 01_cnn/train.py -m 'resnest50_004' -c '384, 5fold, tta=10, Augmix, Coarse, modify head, remove BN'
+# python 01_cnn/train.py -m 'resnest50_004' -c '384, 5fold, tta=10, Augmix, Coarse, modify head, remove BN'
 
 # python 01_cnn/train.py -m 'resnest50_frelu_001' -c '384, test'
 # python 01_cnn/train.py -m 'resnest50_frelu_002' -c '384, 5fold, tta=10, Augmix, seed=2019, remove BN'

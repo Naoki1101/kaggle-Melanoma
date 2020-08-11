@@ -25,7 +25,7 @@ model:
             name: Linear
             params:
                 in_features: 1536
-                out_features: 256
+                out_features: 1
     metric:
 
 validation:
@@ -103,8 +103,22 @@ data:
             batch_size: 16
             num_workers: 4
         transforms:
+            transforms:
+                hflip:
+                    name: HorizontalFlip
+                    params:
+                        p: 0.5
+                vflip:
+                    name: VerticalFlip
+                    params:
+                        p: 0.5
+                rotate:
+                    name: Rotate
+                    params:
+                        p: 0.5
+                        limit: 20
         tta:
-            iter_num: 1
+            iter_num: 10
     test:
         dataset_type: CustomDataset
         is_train: False
@@ -117,8 +131,22 @@ data:
             batch_size: 16
             num_workers: 4
         transforms:
+            transforms:
+                hflip:
+                    name: HorizontalFlip
+                    params:
+                        p: 0.5
+                vflip:
+                    name: VerticalFlip
+                    params:
+                        p: 0.5
+                rotate:
+                    name: Rotate
+                    params:
+                        p: 0.5
+                        limit: 20
         tta:
-            iter_num: 1
+            iter_num: 10
 
 loss: 
     name: WeightedFocalLoss
