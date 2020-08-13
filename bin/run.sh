@@ -56,7 +56,7 @@ cd ../src
 # python 01_cnn/train.py -m 'efficientnetb3_050' -c '384, 5fold, tta=1, epoch=10, no metadata, seed=0, remove BN, extract logits'
 # python 01_cnn/train.py -m 'efficientnetb3_051' -c '384, 5fold, tta=1, epoch=10, no metadata, seed=0, remove BN, remove dropout, extract logits'
 # python 01_cnn/train.py -m 'efficientnetb3_052' -c '384, 5fold, tta=10, epoch=10, no metadata, seed=0, remove BN, Coarse'
-python 01_cnn/train.py -m 'efficientnetb3_053' -c '384, 5fold, tta=10, epoch=10, no metadata, seed=0, remove BN, Coarse, Mish'
+# python 01_cnn/train.py -m 'efficientnetb3_053' -c '384, 5fold, tta=10, epoch=10, no metadata, seed=0, remove BN, Coarse, Mish'
 
 # python 01_cnn/train.py -m 'efficientnetb4_001' -c 'external data'
 # python 01_cnn/train.py -m 'efficientnetb4_002' -c '5fold, tta=5'
@@ -121,6 +121,7 @@ python 01_cnn/train.py -m 'efficientnetb3_053' -c '384, 5fold, tta=10, epoch=10,
 # python 03_ensemble/ensemble.py -m 'ensemble_015' -c '4models, rank_average'
 # python 03_ensemble/ensemble.py -m 'ensemble_016' -c '5models, rank_average'
 # python 03_ensemble/ensemble.py -m 'ensemble_017' -c '5models, rank_average'
+python 03_ensemble/ensemble.py -m 'ensemble_018' -c '5models, rank_average'
 
 cd ../
 git add -A
