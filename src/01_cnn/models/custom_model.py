@@ -78,7 +78,10 @@ def get_head(cfg):
     head_modules = []
     
     for m in cfg.values():
-        module = getattr(nn, m['name'])(**m['params'])
+        if hasattr(nn, m['name']):
+            module = getattr(nn, m['name'])(**m['params'])
+        elif hasattr(layer, m['name']):
+            module = getattr(layer, m['name'])(**m['params'])
         head_modules.append(module)
 
     head_modules = nn.Sequential(*head_modules)
