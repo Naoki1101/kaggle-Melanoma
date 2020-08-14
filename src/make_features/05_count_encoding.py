@@ -4,7 +4,7 @@ from easydict import EasyDict as edict
 
 sys.path.append('../src')
 from utils import DataHandler
-from feature_utils import save_features
+from feature_utils import save_features, TargetEncoding, CountEncoding
 
 dh = DataHandler()
 
@@ -12,15 +12,8 @@ dh = DataHandler()
 def get_features(df):
     features_df = pd.DataFrame()
 
-    features_df['one_hot_sex'] = df['sex'].map({'male': 0, 'female': 1})
-
-    age_df = pd.get_dummies(df['age_approx'])
-    for col in age_df.columns:
-        features_df[f'one_hot_age_{col}'] = age_df[col]
-
-    site_df = pd.get_dummies(df['anatom_site_general_challenge'])
-    for col in site_df.columns:
-        features_df[f'one_hot_site_{col.replace("/", "-")}'] = site_df[col]
+    ce = CountEncoding()
+    features_df['count_encoding_patient_id'] = ce.fit_transform(df['patient_id'])
 
     return features_df
 

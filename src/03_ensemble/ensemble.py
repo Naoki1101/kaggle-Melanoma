@@ -74,7 +74,7 @@ def main():
                 model_preds = np.argsort(np.argsort(model_preds)) / (len(model_preds) - 1)
 
             oof[:, i] = model_oof[:len(train_df)]
-            preds[:, i] = model_preds
+            preds[:, i] = model_preds.reshape(-1)
 
     with t.timer('drop index'):
         if cfg.common.drop is not None:

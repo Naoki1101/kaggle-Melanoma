@@ -1,0 +1,31 @@
+common:
+    seed: &seed 2020
+    target: target
+    metrics:
+        name: auc
+        params: {}
+    drop:
+    kaggle:
+        submit: True
+
+
+data:
+    sample:
+        name: sample_submission
+    drop:
+        name:
+    option:
+        rank_avg: True
+    models:
+        model1:
+            name: triple_stratified_kfold_with_tfrecords_b6_384_0.908
+        model2:
+            name: triple_stratified_kfold_with_tfrecords_b4_512_0.907
+        model3:
+            name: triple_stratified_kfold_with_tfrecords_b5_384_0.913
+        model4:
+            name: efficientnetb3_052_20200811230837_0.924
+        model5:
+            name: efficientnetb3_053_20200812193837_0.924
+        model6:
+            name: lgbm_006_20200813194710_0.849

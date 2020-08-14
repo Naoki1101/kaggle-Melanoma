@@ -1,6 +1,7 @@
 features:
 - age_approx
 - anatom_site_general_challenge
+- count_encoding_patient_id
 - height
 - one_hot_age_0.0
 - one_hot_age_10.0

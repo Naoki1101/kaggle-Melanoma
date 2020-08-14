@@ -57,6 +57,7 @@ cd ../src
 # python 01_cnn/train.py -m 'efficientnetb3_051' -c '384, 5fold, tta=1, epoch=10, no metadata, seed=0, remove BN, remove dropout, extract logits'
 # python 01_cnn/train.py -m 'efficientnetb3_052' -c '384, 5fold, tta=10, epoch=10, no metadata, seed=0, remove BN, Coarse'
 # python 01_cnn/train.py -m 'efficientnetb3_053' -c '384, 5fold, tta=10, epoch=10, no metadata, seed=0, remove BN, Coarse, Mish'
+# python 01_cnn/train.py -m 'efficientnetb3_054' -c '384, 5fold, tta=10, epoch=10, no metadata, seed=0, remove BN, Coarse, HairAug'
 
 # python 01_cnn/train.py -m 'efficientnetb4_001' -c 'external data'
 # python 01_cnn/train.py -m 'efficientnetb4_002' -c '5fold, tta=5'
@@ -99,6 +100,7 @@ cd ../src
 # python 02_gbdt/train.py -m 'lgbm_003' -c 'lgbmtuner'
 # python 02_gbdt/train.py -m 'lgbm_004' -c 'parameter tuning'
 # python 02_gbdt/train.py -m 'lgbm_005' -c 'custom_002'
+# python 02_gbdt/train.py -m 'lgbm_006' -c 'custom_003'
 
 
 # =========================================================
@@ -121,7 +123,11 @@ cd ../src
 # python 03_ensemble/ensemble.py -m 'ensemble_015' -c '4models, rank_average'
 # python 03_ensemble/ensemble.py -m 'ensemble_016' -c '5models, rank_average'
 # python 03_ensemble/ensemble.py -m 'ensemble_017' -c '5models, rank_average'
-python 03_ensemble/ensemble.py -m 'ensemble_018' -c '5models, rank_average'
+# python 03_ensemble/ensemble.py -m 'ensemble_018' -c '5models, rank_average'
+# python 03_ensemble/ensemble.py -m 'ensemble_019' -c '6models, rank_average'
+# python 03_ensemble/ensemble.py -m 'ensemble_020' -c '6models, rank_average'
+# python 03_ensemble/ensemble.py -m 'ensemble_021' -c '3models, rank_average'
+python 03_ensemble/ensemble.py -m 'ensemble_022' -c '7models, rank_average'
 
 cd ../
 git add -A

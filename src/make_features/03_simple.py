@@ -4,7 +4,7 @@ from easydict import EasyDict as edict
 
 sys.path.append('../src')
 from utils import DataHandler
-from feature_utils import save_features, TargetEncoding, CountEncoding
+from feature_utils import save_features
 
 dh = DataHandler()
 

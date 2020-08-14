@@ -4,10 +4,29 @@ from easydict import EasyDict as edict
 
 sys.path.append('../src')
 from utils import DataHandler
-from factory import get_fold
 from feature_utils import save_features, TargetEncoding, CountEncoding
 
 dh = DataHandler()
+
+
+def get_fold(cfg, df, target):
+    df_ = df.copy()
+    target_columns = target.columns[0]
+    df_[target_columns] = target[target_columns].values
+
+    fold_df = pd.DataFrame(index=range(len(df_)))
+
+    if len(cfg.weight) == 1:
+        weight_list = [cfg.weight[0] for i in range(cfg.params.n_splits)]
+    else:
+        weight_list = cfg.weight
+
+    fold = getattr(validation, cfg.name)(cfg)
+    for fold_, (trn_idx, val_idx) in enumerate(fold.split(df_)):
+        fold_df[f'fold_{fold_}'] = 0
+        fold_df.loc[val_idx, f'fold_{fold_}'] = weight_list[fold_]
+    
+    return fold_df
 
 
 def get_features(train, test):
